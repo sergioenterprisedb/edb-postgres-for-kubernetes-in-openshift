@@ -1,0 +1,39 @@
+apiVersion: minio.min.io/v2
+kind: Tenant
+metadata:
+  name: minio
+  namespace: minio-tenant
+  labels:
+    app: minio
+spec:
+  features:
+    bucketDNS: false
+  users:
+    - name: storage-user
+  buckets:
+    - name: database-backups
+  podManagementPolicy: Parallel
+  configuration:
+    name: storage-configuration
+  image: quay.io/minio/minio:RELEASE.2023-09-04T19-57-37Z
+  mountPath: /export
+  subPath: ""
+  serviceAccountName: ""
+  pools:
+    - servers: 2
+      name: pool-0
+      volumesPerServer: 2
+      volumeClaimTemplate:
+        apiVersion: v1
+        kind: persistentvolumeclaims
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
+          storageClassName: crc-csi-hostpath-provisioner
+      securityContext: {}
+      containerSecurityContext: {}
+  requestAutoCert: false
+
