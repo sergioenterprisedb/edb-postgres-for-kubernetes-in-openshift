@@ -1,0 +1,73 @@
+apiVersion: postgresql.k8s.enterprisedb.io/v1
+kind: Cluster
+metadata:
+  name: cluster-sample-15
+spec:
+  instances: 1
+  imageName: quay.io/enterprisedb/postgresql:15.3
+
+  storage:
+    size: 1Gi
+
+  bootstrap:
+    initdb:
+      import:
+        type: microservice
+        databases:
+          - app
+        source:
+          externalCluster: cluster-sample
+
+  externalClusters:
+    - name: cluster-sample
+      connectionParameters:
+        # Use the correct IP or host name for the source database
+        host: cluster-sample-rw
+        user: postgres
+        dbname: postgres
+      password:
+        name: cluster-sample-superuser
+        key: password
+
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "1"
+    limits:
+      memory: "1Gi"
+      cpu: "2"
+
+  postgresql:
+    parameters:
+      pg_stat_statements.max: "10000"
+      pg_stat_statements.track: all
+
+  storage:
+    size: 1Gi
+
+  walStorage:
+    resizeInUseVolumes: true
+    size: 1Gi
+
+  monitoring:
+    enablePodMonitor: true
+
+  backup:
+    #target: "prefer-standby"
+    barmanObjectStore:
+      destinationPath: "s3://database-backups/"
+      endpointURL: http://minio-client-minio-tenant.apps-crc.testing
+      s3Credentials:
+        accessKeyId:
+          name: backup-secret
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: backup-secret
+          key: ACCESS_SECRET_KEY
+      data:
+        immediateCheckpoint: true
+      #wal:
+      #  compression: gzip
+      #  maxParallel: 8
+      #  encryption: AES256
+    retentionPolicy: "1d"
