@@ -88,7 +88,6 @@ To delete your cluster execute:
 ./delete_all_clusters.sh
 ```
 
-```
 # Deploy Prometheus/Grafana monitoring tools
 ```
 cd monitoring
