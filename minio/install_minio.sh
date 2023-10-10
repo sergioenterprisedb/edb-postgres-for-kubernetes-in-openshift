@@ -18,7 +18,7 @@ kubectl apply -f minio_route.yaml
 kubectl apply -f minio_client_route.yaml
 kubectl apply -f backup-secrets.yaml
 sleep 20
-printf "Console: https://minio-console-minio-tenant.apps-crc.testing/logini\n"
+printf "Console: https://minio-console-minio-tenant.apps-crc.testing/login\n"
 printf "User: minio\n"
 printf "Password: minio123\n"
 
