@@ -4,10 +4,24 @@ metadata:
   name: cluster-sample
 spec:
   instances: 3
-  imageName: 'quay.io/enterprisedb/postgresql:14.2'
-  primaryUpdateStrategy: supervised
+  imageName: 'quay.io/enterprisedb/edb-postgres-advanced:15.1'
+  licenseKey: '<your_licence_key>'
 
-  # Reduce the frequency of standby HA slots updates to once every 5 minutes
+  postgresql:
+    epas:
+      tde:
+        enabled: true
+        secretKeyRef:
+          name: tde-key
+          key: key
+    parameters:
+      pg_stat_statements.max: "10000"
+      pg_stat_statements.track: all
+
+  bootstrap:
+    initdb:
+      redwood: true
+
   replicationSlots:
     highAvailability:
       enabled: true
@@ -15,11 +29,6 @@ spec:
 
   minSyncReplicas: 1
   maxSyncReplicas: 1
-
-  postgresql:
-    parameters:
-      pg_stat_statements.max: "10000"
-      pg_stat_statements.track: all
 
   storage:
     size: 1Gi
@@ -38,3 +47,4 @@ spec:
     limits:
       memory: "1Gi"
       cpu: "2"
+

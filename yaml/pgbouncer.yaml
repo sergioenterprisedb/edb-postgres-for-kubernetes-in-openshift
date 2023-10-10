@@ -1,0 +1,30 @@
+apiVersion: postgresql.k8s.enterprisedb.io/v1
+kind: Pooler
+metadata:
+  name: pooler-sample-rw
+spec:
+  cluster:
+    name: cluster-sample
+
+  instances: 2
+  type: rw
+
+  template:
+    metadata:
+      labels:
+        app: pooler
+    spec:
+      containers:
+        - name: pgbouncer
+          resources:
+            requests:
+              cpu: "1"
+              memory: 500Mi
+            limits:
+              cpu: "1"
+              memory: 500Mi
+  pgbouncer:
+    poolMode: transaction
+    parameters:
+      max_client_conn: "5000"
+      default_pool_size: "50"

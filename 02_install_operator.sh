@@ -9,8 +9,8 @@ printf "${green}oc describe packagemanifests -n openshift-marketplace cloud-nati
 oc describe packagemanifests -n openshift-marketplace cloud-native-postgresql
 sleep 1
 
-printf "${green}oc create namespace my-operators${reset}\n"
-oc create namespace my-operators
+#printf "${green}oc create namespace my-operators${reset}\n"
+#oc create namespace my-operators
 #oc apply -f ./yaml/operator-group.yaml
 
 # Cluster-wide installation

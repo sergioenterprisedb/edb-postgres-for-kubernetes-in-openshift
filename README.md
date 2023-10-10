@@ -83,7 +83,7 @@ Or upgrade your current cluster:
 ./60_pgbouncer.sh
 ```
 
-To delete your cluster execute:
+# Delete clusters
 ```
 ./delete_all_clusters.sh
 ```

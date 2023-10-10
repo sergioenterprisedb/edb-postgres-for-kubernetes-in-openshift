@@ -7,7 +7,7 @@ kubectl create secret generic backup-secret \
 kubectl create namespace minio-tenant
 
 kubectl apply -f subscription.yaml
-sleep 3
+sleep 30
 kubectl apply -f tenant.yaml
 sleep 3
 kubectl apply -f storage-configuration.yaml
@@ -17,3 +17,8 @@ sleep 3
 kubectl apply -f minio_route.yaml
 kubectl apply -f minio_client_route.yaml
 kubectl apply -f backup-secrets.yaml
+sleep 20
+printf "Console: https://minio-console-minio-tenant.apps-crc.testing/logini\n"
+printf "User: minio\n"
+printf "Password: minio123\n"
+

@@ -25,6 +25,7 @@ spec:
       #"pgaudit.log_relation": "on"
   storage:
     size: 1Gi
+
   walStorage:
     resizeInUseVolumes: true
     size: 1Gi
