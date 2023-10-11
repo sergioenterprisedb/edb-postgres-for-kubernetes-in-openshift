@@ -7,5 +7,5 @@ curl -sSfL \
   https://github.com/EnterpriseDB/kubectl-cnp/raw/main/install.sh | \
   sh -s -- -b /usr/local/bin
 
-printf "${green}Pluging kubectl-cnp installed${reset}\n"
+printf "${green}Pluging ${kubectl_cnp} installed${reset}\n"
 

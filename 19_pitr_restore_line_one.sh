@@ -2,7 +2,7 @@
 . ./config.sh
 . ./primary.sh
 
-pitr_date=$(kubectl exec -it ${primary} -- psql -U postgres -X -A -t -c "select min(timestamp+interval '1 second') from test;") 
+pitr_date=$(${kubectl_cmd} exec -it ${primary} -- psql -U postgres -X -A -t -c "select min(timestamp+interval '1 second') from test;") 
 printf "${yellow}Restore date: ${red}${pitr_date%?}${reset}\n"
 
 cat > ./pitr/restore.yaml <<EOF
@@ -12,7 +12,7 @@ metadata:
   name: cluster-restore
 spec:
   instances: 1
-  imageName: 'quay.io/enterprisedb/postgresql:15.3'
+  imageName: 'quay.io/enterprisedb/postgresql:14.5'
 
   storage:
     size: 1Gi
@@ -39,14 +39,14 @@ spec:
 EOF
 
 printf "${green}Deleting cluster-restore cluster${reset}\n"
-kubectl delete cluster cluster-restore
+${kubectl_cmd} delete cluster cluster-restore
 sleep 5
-kubectl exec -it ${primary} -- psql -U postgres -c "select pg_switch_wal();"
-kubectl apply -f ./pitr/restore.yaml
+${kubectl_cmd} exec -it ${primary} -- psql -U postgres -c "select pg_switch_wal();"
+${kubectl_cmd} apply -f ./pitr/restore.yaml
 printf "\n"
 printf "${green}/!\ Verify that only the first record will be restored in the new cluster${reset}\n"
 printf "${green}/!\ Please, wait 60 seconds${reset}\n"
 printf "\n"
 sleep 60
-kubectl exec -it cluster-restore-1 -- psql -U postgres -c "select * from test;"
+${kubectl_cmd} exec -it cluster-restore-1 -- psql -U postgres -c "select * from test;"
 

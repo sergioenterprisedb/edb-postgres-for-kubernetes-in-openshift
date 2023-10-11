@@ -2,6 +2,6 @@
 . ./config.sh
 . ./primary.sh
 
-printf "${green}kubectl exec -it ${primary} -- psql < ./pitr/pitr_insert_data_3.sql${reset}\n"
+printf "${green}${kubectl_cmd} exec -it ${primary} -- psql < ./pitr/pitr_insert_data_3.sql${reset}\n"
 
-kubectl exec -it ${primary} -- psql -U postgres  < ./pitr/pitr_insert_data_3.sql
+${kubectl_cmd} exec -it ${primary} -- psql -U postgres  < ./pitr/pitr_insert_data_3.sql

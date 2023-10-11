@@ -2,6 +2,6 @@
 
 . ./config.sh
 
-printf "${green}kubectl apply -f ./yaml/cluster-example-upgrade-13-to-15.yaml${reset}\n"
+printf "${green}${kubectl_cmd} apply -f ./yaml/cluster-example-upgrade-13-to-15.yaml${reset}\n"
 
-kubectl apply -f ./yaml/cluster-example-upgrade-13-to-15.yaml
+${kubectl_cmd} apply -f ./yaml/cluster-example-upgrade-13-to-15.yaml

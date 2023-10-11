@@ -1,2 +1,3 @@
-kubectl-cnp fencing off cluster-sample cluster-sample-3
+. ./config.sh
+${kubectl_cnp} fencing off cluster-sample cluster-sample-3
 

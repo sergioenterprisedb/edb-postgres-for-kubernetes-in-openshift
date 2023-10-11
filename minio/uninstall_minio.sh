@@ -1,11 +1,12 @@
 #!/bin/bash
+. ../config.sh
 
-kubectl delete -f tenant.yaml
-kubectl delete -f storage-configuration.yaml
-kubectl delete -f storage-user.yaml
-kubectl delete -f minio_route.yaml
-kubectl delete -f minio_client_route.yaml
-kubectl delete -f backup-secrets.yaml
-kubectl delete -f subscription.yaml
-kubectl delete namespace minio-tenant
+${kubectl_cnp} delete -f tenant.yaml
+${kubectl_cnp} delete -f storage-configuration.yaml
+${kubectl_cnp} delete -f storage-user.yaml
+${kubectl_cnp} delete -f minio_route.yaml
+${kubectl_cnp} delete -f minio_client_route.yaml
+${kubectl_cnp} delete -f backup-secrets.yaml
+${kubectl_cnp} delete -f subscription.yaml
+${kubectl_cnp} delete namespace minio-tenant
 

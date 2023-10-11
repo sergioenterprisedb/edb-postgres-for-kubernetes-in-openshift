@@ -2,6 +2,6 @@
 
 . ./config.sh
 
-printf "${green}kubectl apply -f ./yaml/${cluster_name}.yaml${reset}\n"
+printf "${green}${kubectl_cmd} apply -f ./yaml/${cluster_name}.yaml${reset}\n"
 
-oc apply -f ./yaml/${cluster_name}.yaml
+${kubectl_cmd} apply -f ./yaml/${cluster_name}.yaml

@@ -1,0 +1,19 @@
+apiVersion: postgresql.k8s.enterprisedb.io/v1
+kind: Cluster
+metadata:
+  name: cluster-restore
+spec:
+  instances: 1
+  imageName: quay.io/enterprisedb/postgresql:14.5
+  #imagePullPolicy: Never
+
+  storage:
+    size: 1Gi
+
+  monitoring:
+    enablePodMonitor: true
+
+  bootstrap:
+    recovery:
+      backup:
+        name: backup-test

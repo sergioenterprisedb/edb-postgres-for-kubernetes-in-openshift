@@ -2,6 +2,6 @@
 . ./config.sh
 . ./primary.sh
 
-printf "${green}kubectl exec -i ${primary} -- psql -U postgres < ./sql/sqltest.sql${reset}\n"
+printf "${green}${kubectl_cmd} exec -i ${primary} -- psql -U postgres < ./sql/sqltest.sql${reset}\n"
 
-kubectl exec -i ${primary} -- psql -U postgres < ./sql/sqltest.sql
+${kubectl_cmd} exec -i ${primary} -- psql -U postgres < ./sql/sqltest.sql

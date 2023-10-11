@@ -1,5 +1,6 @@
 #!/bin/bash
 
+kubectl_cmd="oc"
 kubectl_cnp="kubectl-cnp"
 cluster_name="cluster-sample"
 
