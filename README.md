@@ -17,7 +17,7 @@ In this demo I'll show you how to create a PostgreSQL cluster with the Red Hat O
 - Last EDB Postgres for Kubernetes tested version is 1.20.2
 
 # Prerequisites
-- Red Hat OpenShift environment
+- Red Hat OpenShift environment (Red Hat Code Ready also works)
 - oc (OpenShift CLI installed)
 - jq (optional if you want to format JSON logs outputs)
 
@@ -117,4 +117,27 @@ cd minio
 ./uninstall_minio.sh
 ```
 
+# Red Hat Code Ready commands
+## Code Ready (crc) commands
+```
+#Use the 'oc' command line interface:
+eval $(crc oc-env)
+oc login -u developer https://api.crc.testing:6443
 
+# Clean environment
+crc delete -f
+crc cleanup
+
+# Setup environment
+crc setup
+crc config set cpus 12
+crc config set consent-telemetry no
+crc config set memory 16384
+crc config set preset openshift
+
+# Start crc
+crc start
+
+# Connect to OpenShift platform as admin
+oc login -u kubeadmin https://api.crc.testing:6443
+```
