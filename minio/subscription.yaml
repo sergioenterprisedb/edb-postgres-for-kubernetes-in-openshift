@@ -9,4 +9,4 @@ spec:
   name: minio-operator
   source: certified-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: minio-operator.v5.0.7
+  startingCSV: minio-operator.v5.0.11

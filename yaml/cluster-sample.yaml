@@ -5,7 +5,7 @@ metadata:
 spec:
   instances: 3
   imageName: 'quay.io/enterprisedb/postgresql:14.2'
-  primaryUpdateStrategy: supervised
+  primaryUpdateStrategy: unsupervised
 
   # Reduce the frequency of standby HA slots updates to once every 5 minutes
   replicationSlots:

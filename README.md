@@ -118,7 +118,13 @@ cd minio
 ```
 
 # Red Hat Code Ready commands
-## Code Ready (crc) commands
+Console:
+```
+The server is accessible via web console at:
+  https://console-openshift-console.apps-crc.testing
+```
+
+Here some Open Shift Code Ready commands:
 ```
 #Use the 'oc' command line interface:
 eval $(crc oc-env)
