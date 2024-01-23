@@ -1,20 +1,26 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: pgadmin
+ name: pgadmin
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: pgadmin
-  template:
-    metadata:
-      labels:
-        app: pgadmin
-    spec:
-      containers:
+ serviceName: pgadmin-service
+ podManagementPolicy: Parallel
+ replicas: 1
+ updateStrategy:
+   type: RollingUpdate
+ selector:
+   matchLabels:
+     app: pgadmin
+ template:
+   metadata:
+     labels:
+       app: pgadmin
+   spec:
+     terminationGracePeriodSeconds: 10
+     containers:
       - name: pgadmin
         image: dpage/pgadmin4:latest
+        imagePullPolicy: Always
         env:
         - name: PGADMIN_DEFAULT_EMAIL
           value: test@test.com
@@ -22,5 +28,16 @@ spec:
           value: test
         - name: PGADMIN_LISTEN_PORT
           value: "80"
-        - name: PGADMIN_DEFAULT_SERVER
-          value: "${POSTGRES_HOST},${POSTGRES_PORT}"
+        ports:
+         - name: http
+           containerPort: 80
+           protocol: TCP
+        volumeMounts:
+         - name: pgadmin-config
+           mountPath: /pgadmin4/servers.json
+           subPath: servers.json
+           readOnly: true
+     volumes:
+     - name: pgadmin-config
+       configMap:
+         name: pgadmin-config

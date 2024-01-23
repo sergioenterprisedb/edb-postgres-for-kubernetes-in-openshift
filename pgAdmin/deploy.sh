@@ -1,7 +1,6 @@
+#!/bin/bash
 
-export POSTGRES_HOST=$(oc get svc cluster-sample-rw -o=jsonpath='{.spec.clusterIP}')
-export POSTGRES_PORT=$(oc get svc cluster-sample-rw -o=jsonpath='{.spec.ports[0].port}')
-
+kubectl apply -f pgadmin-configmap.yaml
 kubectl apply -f pgadmin-deployment.yaml
 kubectl apply -f pgadmin-service.yaml
 kubectl apply -f route.yaml
