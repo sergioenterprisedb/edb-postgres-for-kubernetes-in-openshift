@@ -1,6 +1,6 @@
 #!/bin/bash
 . ../config.sh
-. ../primary.sh
+export primary=`${kubectl_cmd} get pod -o=jsonpath="{range .items[*]}{.metadata.name}{'\t'}{.status.podIP}{'\t'}{.metadata.labels.role}{'\n'}" | grep ${cluster_name} | grep primary | awk '{print $1}'`
 
 ${kubectl_cmd} exec -it ${primary} -- psql -U postgres > tde_file.log <<EOF
 drop table users;
@@ -14,10 +14,10 @@ select pg_relation_filepath('users');
 EOF
 
 export tde_file=`grep base tde_file.log`
-export tde_pgdata=`${kubectl_cmd} exec -it cluster-sample-1 -- bash -c 'echo $PGDATA'`
+export tde_pgdata=`${kubectl_cmd} exec -it ${primary} -- bash -c 'echo $PGDATA'`
 echo "tde_pgdata: $tde_pgdata"
 echo "tde_file: $tde_file"
 export tde_file=`echo $tde_file | tr -s ' '`
-tde_cmd="${kubectl_cmd} exec -it cluster-sample-1 -- bash -c 'hexdump -C /var/lib/postgresql/data/pgdata/${tde_file}'"
+tde_cmd="${kubectl_cmd} exec -it ${primary} -- bash -c 'hexdump -C /var/lib/postgresql/data/pgdata/${tde_file}'"
 echo "$tde_cmd"
 eval $tde_cmd
