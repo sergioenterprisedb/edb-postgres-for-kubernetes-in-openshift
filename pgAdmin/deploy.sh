@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# 
+# https://github.com/sergioenterprisedb/edb-postgres-for-kubernetes-in-openshift/tree/main/pgAdmin
 oc adm policy add-scc-to-group anyuid system:serviceaccounts:openshift-operators
-
 # Create custom security context constraints
 oc apply -f security-context.yaml
 # Create a new service account for the deployment, use the following command
