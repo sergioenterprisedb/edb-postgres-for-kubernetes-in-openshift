@@ -1,0 +1,22 @@
+ kind: SecurityContextConstraints
+ apiVersion: security.openshift.io/v1
+ metadata:
+   name: scc-pga
+ allowPrivilegedContainer: false
+ runAsUser:
+   type: MustRunAsRange
+   uidRangeMin: 5000
+   uidRangeMax: 6000
+ seLinuxContext:
+   type: RunAsAny
+ fsGroup:
+   type: MustRunAs
+   ranges:
+   - min: 5000
+     max: 6000
+ supplementalGroups:
+   type: MustRunAs
+   ranges:
+   - min: 5000
+     max: 6000
+

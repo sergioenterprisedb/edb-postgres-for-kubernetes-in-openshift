@@ -16,6 +16,7 @@ spec:
      labels:
        app: pgadmin
    spec:
+     serviceAccountName: sa-pga
      terminationGracePeriodSeconds: 10
      containers:
       - name: pgadmin

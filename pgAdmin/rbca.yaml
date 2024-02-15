@@ -1,0 +1,22 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: role-pga
+rules:
+  - apiGroups: ["security.openshift.io"]
+    resources: ["securitycontextconstraints"]
+    resourceNames: ["scc-pga"]
+    verbs: ["use"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: role-binding-pga
+subjects:
+  - kind: ServiceAccount
+    name: sa-pga
+roleRef:
+  kind: Role
+  name: role-pga
+  apiGroup: rbac.authorization.k8s.io
+
