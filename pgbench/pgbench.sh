@@ -1,26 +1,27 @@
 #!/bin/bash
-kubectl delete jobs pgbench-init
-kubectl delete jobs pgbench-run
+. ../config.sh
+
+${kubectl_cmd} delete jobs pgbench-init
+${kubectl_cmd} delete jobs pgbench-run
 sleep 4 
  
-kubectl cnpg pgbench \
-  --job-name pgbench-init cluster-example   \
+${kubectl_cmd} cnp pgbench \
+  --job-name pgbench-init cluster-sample   \
   -- --initialize \
-  --scale 20 \
-  --index-tablespace=idx
+  --scale 20 
 
 sleep 5 
 
-kubectl logs  jobs/pgbench-init
+${kubectl_cmd} logs  jobs/pgbench-init
 sleep 2
 
-kubectl cnpg pgbench \
+${kubectl_cmd} cnp pgbench \
   --job-name pgbench-run \
-  cluster-example \
+  cluster-sample \
   -- --time 10 \
   --client 32 \
   --jobs 8
 sleep 20
 
-kubectl logs jobs/pgbench-run
+${kubectl_cmd} logs jobs/pgbench-run
 
