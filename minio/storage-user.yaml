@@ -5,5 +5,5 @@ data:
 kind: Secret
 metadata:
   name: storage-user
-  namespace: minio-tenant
+  namespace: minio-operator
 type: Opaque

@@ -2,7 +2,7 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: minio-client
-  namespace: minio-tenant
+  namespace: minio-operator
 spec:
   port:
     targetPort: http-minio

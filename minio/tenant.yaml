@@ -2,7 +2,8 @@ apiVersion: minio.min.io/v2
 kind: Tenant
 metadata:
   name: minio
-  namespace: minio-tenant
+  #namespace: minio-tenant
+  namespace:  minio-operator
   labels:
     app: minio
 spec:
@@ -15,7 +16,9 @@ spec:
   podManagementPolicy: Parallel
   configuration:
     name: storage-configuration
-  image: quay.io/minio/minio:RELEASE.2023-09-04T19-57-37Z
+  #image: quay.io/minio/minio:RELEASE.2023-09-04T19-57-37Z
+  #image: quay.io/minio/minio:5.0.15
+  image:  quay.io/minio/minio@sha256:f95dc4fc35439654a71300f765b485e114e7a720318dbce24ccd4f324d1475cf
   mountPath: /export
   subPath: ""
   serviceAccountName: ""

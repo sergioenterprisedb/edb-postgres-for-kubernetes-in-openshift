@@ -31,3 +31,6 @@ kubectl delete deployment -n default prometheus-community-grafana
 kubectl delete deployment -n default prometheus-community-kube-operator 
 kubectl delete deployment -n default prometheus-community-kube-state-metrics 
 
+# Delete route
+kubectl delete -f route_monitoring.yaml
+

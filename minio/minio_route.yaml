@@ -2,12 +2,13 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: minio-console
-  namespace: minio-tenant
+  namespace: minio-operator
 spec:
   port:
     targetPort: http-console
   tls:
     termination: edge
+    insecureEdgeTerminationPolicy: Allow
   to:
     kind: Service
     name: minio-console

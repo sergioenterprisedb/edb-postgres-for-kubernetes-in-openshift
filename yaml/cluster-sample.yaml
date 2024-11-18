@@ -20,6 +20,9 @@ spec:
     parameters:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
+    enableAlterSystem: true
+    pg_hba:
+      - host all all 0.0.0.0/0 md5
 
   storage:
     size: 1Gi
