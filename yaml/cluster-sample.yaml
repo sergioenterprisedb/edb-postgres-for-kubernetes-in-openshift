@@ -4,7 +4,8 @@ metadata:
   name: cluster-sample
 spec:
   instances: 3
-  imageName: 'quay.io/enterprisedb/postgresql:14.2'
+  logLevel: info
+  imageName: 'quay.io/enterprisedb/postgresql:16.1'
   primaryUpdateStrategy: unsupervised
 
   # Reduce the frequency of standby HA slots updates to once every 5 minutes
@@ -22,11 +23,11 @@ spec:
       pg_stat_statements.track: all
 
   storage:
-    size: 1Gi
+    size: 512Mi
 
   walStorage:
-    resizeInUseVolumes: true
-    size: 1Gi
+    #resizeInUseVolumes: true
+    size: 512Mi
 
   monitoring:
     enablePodMonitor: true
@@ -36,5 +37,5 @@ spec:
       memory: "512Mi"
       cpu: "1"
     limits:
-      memory: "1Gi"
-      cpu: "2"
+      memory: "512Mi"
+      cpu: "1"

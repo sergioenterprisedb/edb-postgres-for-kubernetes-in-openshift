@@ -4,7 +4,7 @@ metadata:
   name: cluster-sample
 spec:
   instances: 3
-  imageName: quay.io/enterprisedb/postgresql:14.5
+  imageName: quay.io/enterprisedb/postgresql:16.4
   #imagePullPolicy: Always
   minSyncReplicas: 1
   maxSyncReplicas: 1
