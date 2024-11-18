@@ -10,7 +10,7 @@ ${kubectl_cmd} cnp pgbench \
   -- --initialize \
   --scale 20 
 
-sleep 5 
+sleep 15 
 
 ${kubectl_cmd} logs  jobs/pgbench-init
 sleep 2
@@ -18,10 +18,11 @@ sleep 2
 ${kubectl_cmd} cnp pgbench \
   --job-name pgbench-run \
   cluster-sample \
-  -- --time 10 \
-  --client 32 \
+  -- --time 20 \
+  --client 16 \
   --jobs 8
-sleep 20
+
+sleep 40
 
 ${kubectl_cmd} logs jobs/pgbench-run
 

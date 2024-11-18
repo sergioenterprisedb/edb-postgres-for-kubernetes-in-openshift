@@ -6,7 +6,8 @@ ${kubectl_cmd} create secret generic backup-secret \
   --from-literal=ACCESS_SECRET_KEY=minio123
 
 ${kubectl_cmd} create namespace minio-tenant
-sleep 10
+${kubectl_cmd} create namespace minio-operator
+sleep 1
 ${kubectl_cmd} apply -f subscription.yaml
 sleep 90
 ${kubectl_cmd} get deploy -A | grep -E "minio|NAMESPACE"
@@ -22,6 +23,7 @@ ${kubectl_cmd} apply -f minio_client_route.yaml
 ${kubectl_cmd} apply -f backup-secrets.yaml
 sleep 20
 printf "Console: https://minio-console-minio-tenant.apps-crc.testing/login\n"
+printf "Console: https://minio-console-minio-operator.apps-crc.testing/login\n"
 printf "User: minio\n"
 printf "Password: minio123\n"
 
