@@ -12,7 +12,7 @@ metadata:
   name: cluster-restore
 spec:
   instances: 1
-  imageName: 'quay.io/enterprisedb/postgresql:14.5'
+  imageName: 'quay.io/enterprisedb/postgresql:16.4'
 
   storage:
     size: 1Gi
@@ -27,15 +27,19 @@ spec:
   externalClusters:
     - name: ${cluster_name}
       barmanObjectStore:
-        destinationPath: "s3://database-backups/"
-        endpointURL: "http://minio-client-minio-tenant.apps-crc.testing"
+        destinationPath: "s3://${object_storage_bucket}/"
+        #endpointURL: ""
+        ${endpoint}
         s3Credentials:
           accessKeyId:
-            name: backup-secret
+            name: minio-creds
             key: ACCESS_KEY_ID
           secretAccessKey:
-            name: backup-secret
+            name: minio-creds
             key: ACCESS_SECRET_KEY
+          sessionToken:
+            name: minio-creds
+            key: ACCESS_SESSION_TOKEN
 EOF
 
 printf "${green}Deleting cluster-restore cluster${reset}\n"

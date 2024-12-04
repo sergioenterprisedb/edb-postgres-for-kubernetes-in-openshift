@@ -31,7 +31,7 @@ spec:
   backup:
     #target: "prefer-standby"
     barmanObjectStore:
-      destinationPath: "s3://<your_destination_path>/"
+      destinationPath: "s3://sergio1-bucket/"
       s3Credentials:
         accessKeyId:
           name: minio-creds
