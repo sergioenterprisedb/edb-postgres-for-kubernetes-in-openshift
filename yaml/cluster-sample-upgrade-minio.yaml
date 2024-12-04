@@ -5,11 +5,10 @@ metadata:
 spec:
   instances: 3
   imageName: quay.io/enterprisedb/postgresql:16.4
-  #imagePullPolicy: Always
   minSyncReplicas: 1
   maxSyncReplicas: 1
+  enableSuperuserAccess: true
 
-  # Reduce the frequency of standby HA slots updates to once every 5 minutes
   replicationSlots:
     highAvailability:
       enabled: true
@@ -48,3 +47,15 @@ spec:
       #  maxParallel: 8
       #  encryption: AES256
     retentionPolicy: "1d"
+
+  managed:
+    services:
+      #disabledDefaultServices: ["ro", "r"]
+      additional:
+      - selectorType: rw
+        serviceTemplate:
+          metadata:
+            name: cluster-sample-rw-lb
+          spec:
+            type: LoadBalancer
+

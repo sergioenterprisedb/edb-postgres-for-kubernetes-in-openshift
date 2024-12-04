@@ -5,11 +5,10 @@ metadata:
 spec:
   instances: 3
   imageName: quay.io/enterprisedb/postgresql:16.4
-  #imagePullPolicy: Always
   minSyncReplicas: 1
   maxSyncReplicas: 1
+  enableSuperuserAccess: true
 
-  # Reduce the frequency of standby HA slots updates to once every 5 minutes
   replicationSlots:
     highAvailability:
       enabled: true
@@ -32,7 +31,7 @@ spec:
   backup:
     #target: "prefer-standby"
     barmanObjectStore:
-      destinationPath: "s3://sergio1-bucket/"
+      destinationPath: "s3://<your_destination_path>/"
       s3Credentials:
         accessKeyId:
           name: minio-creds
@@ -45,8 +44,20 @@ spec:
           key: ACCESS_SESSION_TOKEN
       data:
         immediateCheckpoint: true
-      #wal:
-      #  compression: gzip
-      #  maxParallel: 8
-      #  encryption: AES256
+      wal:
+        compression: gzip
+        maxParallel: 8
+        encryption: AES256
     retentionPolicy: "1d"
+
+  managed:
+    services:
+      #disabledDefaultServices: ["ro", "r"]
+      additional:
+      - selectorType: rw
+        serviceTemplate:
+          metadata:
+            name: cluster-sample-rw-lb
+          spec:
+            type: LoadBalancer
+

@@ -4,10 +4,13 @@ metadata:
   name: cluster-restore
 spec:
   instances: 1
-  imageName: quay.io/enterprisedb/postgresql:14.5
-  #imagePullPolicy: Never
+  imageName: quay.io/enterprisedb/postgresql:16.4
 
   storage:
+    size: 1Gi
+
+  walStorage:
+    resizeInUseVolumes: true
     size: 1Gi
 
   monitoring:

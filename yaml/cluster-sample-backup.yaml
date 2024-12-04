@@ -5,14 +5,12 @@ metadata:
 spec:
   instances: 3
   imageName: 'quay.io/enterprisedb/postgresql:14.2'
-  #imagePullPolicy: Never
   primaryUpdateStrategy: supervised
+  enableSuperuserAccess: true
 
-  # Reduce the frequency of standby HA slots updates to once every 5 minutes
   replicationSlots:
     highAvailability:
       enabled: true
-    #updateInterval: 300
 
   minSyncReplicas: 1
   maxSyncReplicas: 1
