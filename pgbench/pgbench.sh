@@ -107,3 +107,7 @@ ${kubectl_cmd} logs jobs/pgbench-run
 create_table
 insert_pgbench
 show_results
+
+# Delete jobs
+./pgbench_job_delete.sh
+
