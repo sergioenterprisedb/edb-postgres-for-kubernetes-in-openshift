@@ -1,6 +1,7 @@
 #!/bin/bash
 
 . ./config.sh
+. ./commands.sh
 
 k8s_context_name=`${kubectl_cmd} config get-contexts | grep "*" | awk '{print $2}'`
 k8s_context_cluster=`${kubectl_cmd} config get-contexts | grep "*" | awk '{print $3}'`

@@ -12,7 +12,7 @@ metadata:
   name: cluster-restore
 spec:
   instances: 1
-  imageName: '$postgres_default_image'
+  imageName: '$postgres_upgrade_image'
 
   storage:
     size: $postgres_storage
@@ -28,7 +28,7 @@ spec:
     - name: ${cluster_name}
       barmanObjectStore:
         destinationPath: "$s3_destination_path"
-        endpointURL: "${endpoint}"
+        #endpointURL: ${endpoint}
         s3Credentials:
           accessKeyId:
             name: minio-creds
@@ -46,7 +46,7 @@ ${kubectl_cmd} delete cluster cluster-restore
 sleep 5
 ${kubectl_cmd} exec -it ${primary} -- psql -U postgres -c "select pg_switch_wal();"
 #${kubectl_cmd} apply -f ./pitr/restore.yaml
-envsubst < ./pitr/restore.yaml | ${kubectl_cmd} apply -n ${namespace} -f-printf "\n"
+envsubst < ./pitr/restore.yaml | ${kubectl_cmd} apply -n ${namespace} -f-
 
 print_info "/!\ Verify that only the first record will be restored in the new cluster${reset}\n"
 print_info "/!\ Please, wait 60 seconds\n"
