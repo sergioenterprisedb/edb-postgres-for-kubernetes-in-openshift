@@ -22,7 +22,7 @@ pod_monitor1=$(mktemp)
 echo "Instance Name,Cluster,Namespace,Status,Reason,Image Version,Role,Node name,Operator Version" > ${pod_monitor}
 
 #kubectl get pod -A -o=jsonpath="$kubectl_filter" -l 'role in (replica,primary)' | sort -t, -k3,3 -k2,2 -k6,6 >> ${pod_monitor}
-kubectl get pod -A -o=jsonpath="$kubectl_filter" -l 'role in (replica,primary)' | sort -t, -k2,2 -k7,7 >> ${pod_monitor}
+kubectl get pod -A -o=jsonpath="$kubectl_filter" -l 'role in (replica,primary)' | sort -t, -k3,3 -k7,7 >> ${pod_monitor}
 #kubectl get pod -A -o=jsonpath="$kubectl_filter" | grep post | sort -t, -k2,2 -k7,7 >> ${pod_monitor}
 
 
