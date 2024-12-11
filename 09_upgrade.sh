@@ -3,6 +3,7 @@
 . ./config.sh
 . ./env.sh
 
-printf "${green}${kubectl_cnp} apply -n ${namespace} -f ./yaml/${cluster_name}-upgrade.yaml${reset}\n"
+print_command "${kubectl_cnp} apply -n ${namespace} -f ./yaml/cluster-sample-upgrade.yaml\n"
 
-${kubectl_cmd} apply -n ${namespace} -f ./yaml/${cluster_name}-upgrade.yaml
+#${kubectl_cmd} apply -n ${namespace} -f ./yaml/${cluster_name}-upgrade.yaml
+envsubst <  ./yaml/cluster-sample-upgrade.yaml | ${kubectl_cmd} apply -n ${namespace} -f-

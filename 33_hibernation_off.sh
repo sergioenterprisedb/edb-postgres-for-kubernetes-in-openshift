@@ -1,6 +1,6 @@
 #!/bin/bash
 . ./config.sh
-printf "${green}${kubectl_cnp} hibernate off cluster-sample${reset}\n"
+print_command "${kubectl_cnp} hibernate off cluster-sample\n"
 
 ${kubectl_cnp} hibernate off cluster-sample
 

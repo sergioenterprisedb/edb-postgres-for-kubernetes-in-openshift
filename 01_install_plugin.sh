@@ -1,11 +1,11 @@
 #!/bin/bash
 . ./config.sh
-printf "${green}https://github.com/EnterpriseDB/kubectl-cnp/raw/main/install.sh | \
-  sh -s -- -b /usr/local/bin${reset}\n"
+print_command "https://github.com/EnterpriseDB/kubectl-cnp/raw/main/install.sh | \
+  sh -s -- -b /usr/local/bin\n"
 
 curl -sSfL \
   https://github.com/EnterpriseDB/kubectl-cnp/raw/main/install.sh | \
   sh -s -- -b /usr/local/bin
 
-printf "${green}Pluging ${kubectl_cnp} installed${reset}\n"
+print_info "Pluging ${kubectl_cnp} installed\n"
 

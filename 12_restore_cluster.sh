@@ -1,7 +1,7 @@
 #!/bin/bash
 . ./config.sh
-printf "${green}echo \"select pg_switch_wal()\" | ${kubectl_cnp} psql cluster-sample -- -U postgres${reset}\n"
-printf "${green}${kubectl_cmd} apply -f ./yaml/restore.yaml${reset}\n"
+print_command "echo \"select pg_switch_wal()\" | ${kubectl_cnp} psql cluster-sample -- -U postgres\n"
+print_command "${kubectl_cmd} apply -f ./yaml/restore.yaml\n"
 
 echo "select pg_switch_wal()" | ${kubectl_cnp} psql ${cluster_name} -- -U postgres
 sleep 3

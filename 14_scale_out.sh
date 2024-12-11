@@ -1,6 +1,6 @@
 #!/bin/bash
 . ./config.sh
-printf "${green}${kubectl_cmd} scale cluster ${cluster_name} --replicas=4${reset}\n"
+print_command "${kubectl_cmd} scale cluster ${cluster_name} --replicas=4\n"
 
 ${kubectl_cmd} scale cluster ${cluster_name} --replicas=4
 

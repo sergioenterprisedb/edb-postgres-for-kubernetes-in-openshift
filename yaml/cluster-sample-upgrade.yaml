@@ -5,30 +5,25 @@ metadata:
 spec:
   instances: $postgres_instances
   logLevel: info
-  imageName: "$postgres_default_image"
-  primaryUpdateStrategy: unsupervised
+  imageName: "$postgres_upgrade_image"
+  minSyncReplicas: 1
+  maxSyncReplicas: 1
   enableSuperuserAccess: true
 
   replicationSlots:
     highAvailability:
       enabled: true
 
-  minSyncReplicas: 1
-  maxSyncReplicas: 1
-
   postgresql:
     parameters:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
 
-    enableAlterSystem: true
-    pg_hba:
-      - host all all 0.0.0.0/0 md5
-
   storage:
     size: $postgres_storage
 
   walStorage:
+    resizeInUseVolumes: true
     size: $postgres_wal_storage
 
   monitoring:
@@ -41,6 +36,28 @@ spec:
     limits:
       memory: "$postgres_memory"
       cpu: "$postgres_cpu"
+  
+  backup:
+    #target: "prefer-standby"
+    barmanObjectStore:
+      destinationPath: "$s3_destination_path"
+      s3Credentials: $s3_endpoint_url
+        accessKeyId:
+          name: minio-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: minio-creds
+          key: ACCESS_SECRET_KEY
+        sessionToken:
+          name: minio-creds
+          key: ACCESS_SESSION_TOKEN
+      data:
+        immediateCheckpoint: true
+      wal:
+        compression: gzip
+        maxParallel: 8
+        encryption: AES256
+    retentionPolicy: "1d"
 
   managed:
     services:
