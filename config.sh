@@ -8,10 +8,10 @@ export kubectl_cnp="kubectl-cnp"
 
 # Template: edb-<region>-<your-first-name>
 # Ex:       edb-emea-sergio
-export namespace="edb-emea-sergio"
+export namespace="edb-emea-<your_name>"
 
 # Postgres
-export cluster_name="cluster-sample"
+export cluster_name="cluster-<your_name>"
 export postgres_instances=3
 export postgres_cpu="0.5"
 export postgres_memory="512Mi"
@@ -24,9 +24,9 @@ export postgres_upgrade_image="quay.io/enterprisedb/postgresql:16.4"
 # --
 # Object storage environment [aws|minio]
 export object_storage_type="aws"
-export object_storage_bucket="sergio1-bucket"
+export object_storage_bucket="<your_bucket>"
 # aws
-export s3_destination_path="s3://sergio1-bucket/"
+export s3_destination_path="s3://<your_bucket>/"
 export s3_endpoint_url=""
 # Minio
 #export s3_destination_path="s3://database-backups/"
