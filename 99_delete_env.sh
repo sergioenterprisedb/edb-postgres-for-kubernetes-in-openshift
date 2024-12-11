@@ -2,7 +2,7 @@
 
 . ./config.sh
 
-${kubectl_cmd} delete cluster cluster-sample
+${kubectl_cmd} delete cluster ${cluster_name}
 ${kubectl_cmd} delete cluster cluster-restore
 ${kubectl_cmd} delete namespace ${namespace}
 
