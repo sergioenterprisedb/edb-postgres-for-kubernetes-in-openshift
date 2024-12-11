@@ -11,6 +11,9 @@ fi
 # Create namespace if does not exists
 . ./create_namespace.sh
 
+# Create secrets AWS
+. ./aws_secrets.sh
+
 print_command "${kubectl_cmd} apply -n ${namespace} -f ./yaml/cluster_sample.yaml\n"
 
 #${kubectl_cmd} apply -n ${namespace} -f ./yaml/cluster_sample.yaml
