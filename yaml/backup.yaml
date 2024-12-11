@@ -4,4 +4,4 @@ metadata:
   name: backup-test
 spec:
   cluster:
-    name: cluster-sample
+    name: $cluster_name

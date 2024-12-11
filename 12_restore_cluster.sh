@@ -5,5 +5,6 @@ print_command "${kubectl_cmd} apply -f ./yaml/restore.yaml\n"
 
 echo "select pg_switch_wal()" | ${kubectl_cnp} psql ${cluster_name} -- -U postgres
 sleep 3
-${kubectl_cmd} apply -f ./yaml/restore.yaml
+#${kubectl_cmd} apply -f ./yaml/restore.yaml
+envsubst < ./yaml/restore.yaml | ${kubectl_cmd} apply -n ${namespace} -f-
 

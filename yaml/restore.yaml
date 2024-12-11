@@ -4,14 +4,14 @@ metadata:
   name: cluster-restore
 spec:
   instances: 1
-  imageName: quay.io/enterprisedb/postgresql:16.4
+  imageName: '$postgres_upgrade_image'
 
   storage:
-    size: 1Gi
+    size: $postgres_storage
 
   walStorage:
     resizeInUseVolumes: true
-    size: 1Gi
+    size: $postgres_wal_storage
 
   monitoring:
     enablePodMonitor: true
