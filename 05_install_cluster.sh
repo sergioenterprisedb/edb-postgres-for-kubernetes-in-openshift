@@ -11,8 +11,8 @@ fi
 # Create namespace if does not exists
 . ./create_namespace.sh
 
-print_command "${kubectl_cmd} apply -n ${namespace} -f ./yaml/${cluster_name}.yaml\n"
+print_command "${kubectl_cmd} apply -n ${namespace} -f ./yaml/cluster_sample.yaml\n"
 
-#${kubectl_cmd} apply -n ${namespace} -f ./yaml/${cluster_name}.yaml
+#${kubectl_cmd} apply -n ${namespace} -f ./yaml/cluster_sample.yaml
 envsubst < ./yaml/cluster-sample.yaml | ${kubectl_cmd} apply -n ${namespace} -f-
 
