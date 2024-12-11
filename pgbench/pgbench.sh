@@ -75,7 +75,7 @@ printf "${green}Running job pgbench-init...${reset}\n"
 ${kubectl_cnp} pgbench \
   --job-name pgbench-init ${cluster_name}   \
   -- --initialize \
-  --scale 20  
+  --scale 5  
 
 # Set the job name and namespace
 JOB_NAME="pgbench-init"
@@ -93,8 +93,8 @@ ${kubectl_cnp} pgbench \
   --job-name pgbench-run \
   ${cluster_name} \
   -- --time 20 \
-  --client 32 \
-  --jobs  4
+  --client 5 \
+  --jobs 1 
   #--progress=2
   # jobs 8, client 16
 

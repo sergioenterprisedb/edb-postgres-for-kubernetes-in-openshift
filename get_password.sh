@@ -2,9 +2,9 @@
 
 . ./config.sh
 
-export PGPASSWORD=$(kubectl get secret -n ${namespace} cluster-sample-superuser -o jsonpath="{.data.password}" | base64 --decode)
+export PGPASSWORD=$(${kubectl_cmd} get secret -n ${namespace} ${cluster_name}-superuser -o jsonpath="{.data.password}" | base64 --decode)
 
-server=`kubectl get svc | grep LoadBalancer | awk '{print $4}'`
+server=`${kubectl_cmd} get svc | grep LoadBalancer | awk '{print $4}'`
 
 print_info "\n"
 print_info "Database Server  : ${yellow}${server}\n"
