@@ -20,3 +20,9 @@ spec:
     recovery:
       backup:
         name: backup-test
+
+  resources:
+    limits:
+      memory: "$postgres_memory"
+      cpu: "$postgres_cpu"
+
