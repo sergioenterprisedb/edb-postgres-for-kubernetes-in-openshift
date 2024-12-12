@@ -33,38 +33,38 @@ Execute commands in the correct order:
 08_promote.sh
 09_upgrade.sh
 ```
-Backup and Recovery
+# Backup and Recovery
 ```
 10_backup_cluster.sh
 11_backup_describe.sh
 12_restore_cluster.sh
 ```
-Failover
+# Failover
 ```
 13_failover.sh
 ```
-Scale out and down
+# Scale out and down
 ```
 14_scale_out.sh
 15_scale_down.sh
 ```
-PITR (Point in Time Recovery)
+# PITR (Point in Time Recovery)
 ```
 16_pitr_insert_two_lines.sh
 17_pitr_backup.sh
 18_pitr_insert_new_line.sh
 19_pitr_restore_line_one.sh
 ```
-Major Upgrade
+# Major Upgrade
 ```
 20_upgrade_major_version.sh
-````
-Fencing
+```
+# Fencing
 ```
 30_fencing_on.sh
 31_fencing_off.sh
 ```
-Hibernation
+# Hibernation
 ```
 32_hibernation_on.sh
 33_hibernation_off.sh
