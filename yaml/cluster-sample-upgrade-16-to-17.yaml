@@ -4,7 +4,7 @@ metadata:
   name: ${cluster_name}-17
 spec:
   instances: 1
-  imageName: $upgrade_image
+  imageName: $postgres_17_image
   enableSuperuserAccess: true
 
   storage:
