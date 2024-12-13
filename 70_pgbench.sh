@@ -13,23 +13,23 @@ pid2=$!
 sleep 1
 
 export PGPASSWORD=$(${kubectl_cmd} get secret cluster-sample-superuser -o jsonpath="{.data.password}" | base64 --decode)
-echo $PGPASSWORD
+print_info $PGPASSWORD
 ${kubectl_cmd} get pod -o wide
 ${kubectl_cmd} get cluster
 
-echo "Init pbbouncer"
+print_info "Init pbbouncer"
 #pgbench -h localhost -p 6432 -i -I d
 #pgbench -h localhost -p 7432 -i -I d
 #pgbench -h localhost -p 6432 -i -U postgres postgres
 #pgbench -h localhost -p 7432 -i -U postgres postgres
 
-echo "Test Pooler RW"
+print_info "Test Pooler RW"
 ${kubectl_cmd} exec -it ${primary} -- psql -U postgres -c "select inet_server_Addr();"
 #psql -h localhost -p 6432 -U postgres postgres -c "select inet_server_Addr();"
 pgbench -h localhost -p 6432 -T 15 -c 5 -j 4 -U postgres postgres
 #pgbench -h localhost -p 6432 -t 100 -c 10 -j 4 -U postgres postgres
 
-echo "Test pod RW"
+print_info "Test pod RW"
 ${kubectl_cmd} exec -it ${primary} -- psql -U postgres -c "select inet_server_Addr();"
 #psql -h localhost -p 7432 -U postgres postgres -c "select inet_server_Addr();"
 pgbench -h localhost -p 7432 -T 15 -c 5 -j 4 -U postgres postgres
