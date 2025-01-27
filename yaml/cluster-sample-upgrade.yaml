@@ -6,8 +6,8 @@ spec:
   instances: $postgres_instances
   logLevel: info
   imageName: "$postgres_upgrade_image"
-  minSyncReplicas: 1
-  maxSyncReplicas: 1
+  #minSyncReplicas: 1
+  #maxSyncReplicas: 1
   enableSuperuserAccess: true
 
   replicationSlots:
@@ -15,6 +15,14 @@ spec:
       enabled: true
 
   postgresql:
+
+    synchronous:
+      method: any
+      number: 1
+      # preferred: Focuses on self-healing and high availability by automatically 
+      # disabling synchronous replication when no replicas are available in the cluster.
+      dataDurability: preferred
+
     parameters:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all

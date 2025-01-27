@@ -1,13 +1,19 @@
 apiVersion: postgresql.k8s.enterprisedb.io/v1
 kind: Pooler
 metadata:
-  name: pooler-sample-rw
+  name: pooler-${cluster_name}-rw
 spec:
   cluster:
-    name: cluster-sample
+    name: ${cluster_name}
 
   instances: 2
   type: rw
+  serviceTemplate:
+    metadata:
+      labels:
+        app: pooler
+    spec:
+      type: LoadBalancer
 
   template:
     metadata:
