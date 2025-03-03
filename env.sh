@@ -28,6 +28,7 @@ if [[ "$k8s_context_namespace" != "$namespace" ]]; then
   print_error "\n"
   print_error " ├ Your default Kubernetes context namespace is different of your test namesapace.\n"
   print_error " └ Please, before to continue, change it to match both namespace names.\n"
+  print_error " └ You can use the command ./set_context.sh\n"
   print_error "================================================================================================\n"
   exit 1
 fi
