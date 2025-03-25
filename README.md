@@ -1,5 +1,6 @@
-# Description
-In this demo I'll show you how to create a PostgreSQL cluster with the Red Hat OpenShift operator called EDB Postgres for Kubernetes. The features that I want to show you are:
+# Intro
+In this demo I'll show you how to create a PostgreSQL cluster with the Red Hat OpenShift operator called EDB CloudNativePG.
+The features that I want to show you are:
 - Kubernetes plugin install
 - EDB Postgres for Kubernetes operator install
 - Postgres cluster install
@@ -15,12 +16,96 @@ In this demo I'll show you how to create a PostgreSQL cluster with the Red Hat O
 - Monitoring (scripts)
 - Operator upgrade
 
-# Prerequisites
+# Demo prep
+To use this demo the following software is needed:
+- Red Hat OpenShift 4.x
+
+## Prerequisites
 - Red Hat OpenShift environment (Red Hat Code Ready also works)
 - oc (OpenShift CLI installed)
 - jq (optional if you want to format JSON logs outputs)
+- Modify `config.sh` file with your parameters:
+  - Replace variables:
+    - `id` : with your name or id
+    - `region`: region in which you deploy your clusters: `[emea|na|apj]`
+    - `bucket`: Your S3 bucket where you store your backups and Postgres wals.
 
-# Demo
+## Credentials
+Create a file `.aws.sh` with this information:
+```
+export AWS_ACCESS_KEY_ID="<AWS_ACCESS_KEY_ID>"
+export AWS_SECRET_ACCESS_KEY="<AWS_SECRET_ACCESS_KEY>"
+export AWS_SESSION_TOKEN="<AWS_SESSION_TOKEN>"
+```
+## Demo namespace structure
+```
+Namespaces
+
+├── edb-emea-user1
+│   ├─ cluster-user1
+│   ├─ cluster-user1-17
+│   ├─ cluster-restore
+├── edb-emea-user2
+│   ├─ cluster-user2
+│   ├─ cluster-user2-17
+│   ├─ cluster-restore
+├── edb-na-user3
+│   ├─ cluster-user3
+├── edb-na-user4
+│   ├─ cluster-user4
+│   ├─ cluster-user4-17
+│   ├─ cluster-restore
+├── edb-apj-user5
+└── edb-apj-user6
+    ├─ cluster-user6
+    ├─ cluster-user6-17
+    └─ cluster-restore
+```
+
+## Dashboard
+File `.env.sh` show all the env variables created to manage
+the PostgreSQL clusters in Red Hat OpensShift. This is an example:
+```
+./env.sh
+----------------------------------------------------------------------------------------------
+⎈ Kubernetes environment ⎈
+----------------------------------------------------------------------------------------------
+Context
+├─ Current name            : docker-desktop
+├─ Current cluster         : docker-desktop
+└─ Current namespace       : edb-emea-pgcluster
+Pods
+└─ Sum of pod CPU's        : 1.5 / 12
+Nodes
+├─ Total K8s nodes         : 1
+└─ Number of CPU's per node: 12
+Kubernetes Namespace       : edb-emea-pgcluster
+
+----------------------------------------------------------------------------------------------
+PostgreSQL Cluster configuration
+----------------------------------------------------------------------------------------------
+PostgreSQL Cluster Name    : cluster-pgcluster
+Postgres Instances         : 3
+Postgres CPU's             : 0.5
+Postgres Memory            : 512Mi
+Postgres storage           : 512Mi
+Postgres WAL storage       : 512Mi
+
+----------------------------------------------------------------------------------------------
+Object Storage
+----------------------------------------------------------------------------------------------
+Object Storage type        : aws
+Object Storage bucket      : <your-bucket>
+Destination path           : s3://<your-bucket>/
+Endpoint                   : 
+
+----------------------------------------------------------------------------------------------
+Transparent Data Encryption (TDE)
+----------------------------------------------------------------------------------------------
+Using TDE (in progress)    : N
+```
+
+# Demo flow
 Execute commands in the correct order:
 ```
 01_install_plugin.sh
