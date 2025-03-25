@@ -5,10 +5,10 @@
 # Variables to be replaced
 export id="<your-name>"                  # your name or id
 export region="<your-region>"            # emea,na,apj
-export namespace="edb-${region}-${id}"   # k8s namespaceA
 export bucket="<your-bucket>"            # S3 bucket name
 
 # Kubernetes environment
+export namespace="edb-${region}-${id}"   # k8s namespace
 export kubectl_cmd="oc"
 export kubectl_cnp="kubectl-cnp"
 
