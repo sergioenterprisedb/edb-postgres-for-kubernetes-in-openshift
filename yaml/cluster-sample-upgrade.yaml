@@ -61,10 +61,10 @@ spec:
           key: ACCESS_SESSION_TOKEN
       data:
         immediateCheckpoint: true
-      wal:
-        compression: gzip
-        maxParallel: 8
-        encryption: AES256
+      #wal:
+      #  compression: gzip
+      #  maxParallel: 8
+      #  encryption: AES256
     retentionPolicy: "1d"
 
   managed:
