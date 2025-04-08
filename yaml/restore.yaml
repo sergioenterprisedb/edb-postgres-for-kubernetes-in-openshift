@@ -4,7 +4,7 @@ metadata:
   name: "$cluster_restore"
 spec:
   instances: 1
-  imageName: '$postgres_upgrade_image'
+  imageName: "$postgres_upgrade_image"
 
   storage:
     size: $postgres_storage
