@@ -3,9 +3,9 @@
 . ./commands.sh
 
 # Variables to be replaced
-export id="<your-name>"                  # your name or id
-export region="<your-region>"            # emea,na,apj
-export bucket="<your-bucket>"            # S3 bucket name
+export id="sergio"                       # your name or id
+export region="emea"                     # emea,na,apj
+export bucket="sergio1-bucket"           # S3 bucket name
 
 # Kubernetes environment
 export namespace="edb-${region}-${id}"   # k8s namespace
@@ -14,6 +14,7 @@ export kubectl_cnp="kubectl-cnp"
 
 # Postgres
 export cluster_name="cluster-${id}"
+export cluster_restore="cluster-restore-${id}"
 export postgres_instances=3
 export postgres_cpu="0.5"
 export postgres_memory="512Mi"
