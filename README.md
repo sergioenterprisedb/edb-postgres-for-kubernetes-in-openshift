@@ -29,6 +29,10 @@ To use this demo the following software is needed:
     - `id` : with your name or id
     - `region`: region in which you deploy your clusters: `[emea|na|apj]`
     - `bucket`: Your S3 bucket where you store your backups and Postgres wals.
+    - `object_storage_type` to `minio` or `aws`
+    - `ACCESS_KEY_ID`
+    - `ACCESS_SECRET_KEY`
+    - `ACCESS_SESSION_TOKEN` if necessary (only for AWS S3)
 
 ## Credentials
 Create a file `.aws.sh` with this information:
