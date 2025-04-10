@@ -1,10 +1,11 @@
 apiVersion: postgresql.k8s.enterprisedb.io/v1
 kind: Cluster
 metadata:
-  name: cluster-sample
+  name: $cluster_name
 spec:
-  instances: 3
-  imageName: quay.io/enterprisedb/postgresql:16.4
+  instances: $postgres_instances
+  logLevel: info
+  imageName: "$postgres_upgrade_image"
   #minSyncReplicas: 1
   #maxSyncReplicas: 1
   enableSuperuserAccess: true
@@ -27,26 +28,34 @@ spec:
       pg_stat_statements.track: all
 
   storage:
-    size: 1Gi
+    size: $postgres_storage
 
   walStorage:
     resizeInUseVolumes: true
-    size: 1Gi
+    size: $postgres_wal_storage
 
   monitoring:
     enablePodMonitor: true
 
+  resources:
+    #requests:
+    #  memory: "512Mi"
+    #  cpu: "1"
+    limits:
+      memory: "$postgres_memory"
+      cpu: "$postgres_cpu"
+  
   backup:
     #target: "prefer-standby"
     barmanObjectStore:
-      destinationPath: "s3://database-backups/"
-      endpointURL: http://minio-client-minio-operator.apps-crc.testing
-      s3Credentials:
+      destinationPath: "$s3_destination_path"
+      endpointURL: "$s3_endpoint_url"
+      s3Credentials: 
         accessKeyId:
-          name: backup-secret
+          name: minio-creds
           key: ACCESS_KEY_ID
         secretAccessKey:
-          name: backup-secret
+          name: minio-creds
           key: ACCESS_SECRET_KEY
       data:
         immediateCheckpoint: true

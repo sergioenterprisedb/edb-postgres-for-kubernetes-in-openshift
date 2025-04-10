@@ -3,10 +3,10 @@
 . ./config.sh
 . ./env.sh
 
-# Create secrets AWS
-. ./aws_secrets.sh
-
-print_command "${kubectl_cmd} apply -n ${namespace} -f ./yaml/cluster-sample-upgrade.yaml\n"
-
-#${kubectl_cmd} apply -n ${namespace} -f ./yaml/${cluster_name}-upgrade.yaml
-envsubst <  ./yaml/cluster-sample-upgrade.yaml | ${kubectl_cmd} apply -n ${namespace} -f-
+if [ "$object_storage_type" == "aws" ]; then
+  print_command "${kubectl_cmd} apply -n ${namespace} -f ./yaml/cluster-sample-upgrade.yaml\n"
+  envsubst <  ./yaml/cluster-sample-upgrade.yaml | ${kubectl_cmd} apply -n ${namespace} -f-
+elif [ "$object_storage_type" == "minio" ]; then
+  print_command "${kubectl_cmd} apply -n ${namespace} -f ./yaml/cluster-sample-upgrade-minio.yaml\n"
+  envsubst <  ./yaml/cluster-sample-upgrade-minio.yaml | ${kubectl_cmd} apply -n ${namespace} -f-
+fi

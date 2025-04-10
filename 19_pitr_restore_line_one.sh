@@ -9,7 +9,7 @@ cat > ./pitr/restore.yaml <<EOF
 apiVersion: postgresql.k8s.enterprisedb.io/v1
 kind: Cluster
 metadata:
-  name: cluster-restore
+  name: '$cluster_restore'
 spec:
   instances: 1
   imageName: '$postgres_upgrade_image'
@@ -27,8 +27,10 @@ spec:
   externalClusters:
     - name: ${cluster_name}
       barmanObjectStore:
-        destinationPath: "$s3_destination_path"
+        #destinationPath: "$s3_destination_path"
         #endpointURL: ${endpoint}
+        destinationPath: "$s3_destination_path"
+        endpointURL: "$s3_endpoint_url"
         s3Credentials:
           accessKeyId:
             name: minio-creds
@@ -36,13 +38,13 @@ spec:
           secretAccessKey:
             name: minio-creds
             key: ACCESS_SECRET_KEY
-          sessionToken:
-            name: minio-creds
-            key: ACCESS_SESSION_TOKEN
+          #sessionToken:
+          #  name: minio-creds
+          #  key: ACCESS_SESSION_TOKEN
 EOF
 
 print_info "Deleting cluster-restore cluster\n"
-${kubectl_cmd} delete cluster cluster-restore
+${kubectl_cmd} delete cluster ${cluster_restore}
 sleep 5
 ${kubectl_cmd} exec -it ${primary} -- psql -U postgres -c "select pg_switch_wal();"
 #${kubectl_cmd} apply -f ./pitr/restore.yaml
@@ -51,6 +53,6 @@ envsubst < ./pitr/restore.yaml | ${kubectl_cmd} apply -n ${namespace} -f-
 print_info "/!\ Verify that only the first record will be restored in the new cluster${reset}\n"
 print_info "/!\ Please, wait 60 seconds\n"
 printf "\n"
-sleep 60
-${kubectl_cmd} exec -it cluster-restore-1 -- psql -U postgres -c "select * from test;"
+sleep 70
+${kubectl_cmd} exec -it ${cluster_restore}-1 -- psql -U postgres -c "select * from test;"
 

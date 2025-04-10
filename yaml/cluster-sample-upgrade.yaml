@@ -49,7 +49,8 @@ spec:
     #target: "prefer-standby"
     barmanObjectStore:
       destinationPath: "$s3_destination_path"
-      s3Credentials: $s3_endpoint_url
+      #endpointURL: "$s3_endpoint_url"
+      s3Credentials: 
         accessKeyId:
           name: minio-creds
           key: ACCESS_KEY_ID
