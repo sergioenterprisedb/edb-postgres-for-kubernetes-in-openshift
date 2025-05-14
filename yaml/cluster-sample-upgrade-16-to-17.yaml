@@ -34,14 +34,14 @@ spec:
       memory: "$postgres_memory"
       cpu: "$postgres_cpu"
 
-  managed:
-    services:
-      #disabledDefaultServices: ["ro", "r"]
-      additional:
-      - selectorType: rw
-        serviceTemplate:
-          metadata:
-            name: ${cluster_name}-17-rw-lb
-          spec:
-            type: LoadBalancer
+#  managed:
+#    services:
+#      #disabledDefaultServices: ["ro", "r"]
+#      additional:
+#      - selectorType: rw
+#        serviceTemplate:
+#          metadata:
+#            name: ${cluster_name}-17-rw-lb
+#          spec:
+#            type: LoadBalancer
 

@@ -2,6 +2,9 @@
 
 . ./config.sh
 
+#Doc
+echo "04" > ./docs/docid
+
 # Create namespace if does not exists
 . ./create_namespace.sh
 

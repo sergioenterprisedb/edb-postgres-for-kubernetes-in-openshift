@@ -2,8 +2,8 @@
 
 #. ../config.sh
 
-#label_cluster_name="k8s\.enterprisedb\.io"
-label_cluster_name="cnpg\.io"
+label_cluster_name="k8s\.enterprisedb\.io"
+#label_cluster_name="cnpg\.io"
 
 kubectl_filter="\
 {range .items[*]}{.metadata.name}{','}\

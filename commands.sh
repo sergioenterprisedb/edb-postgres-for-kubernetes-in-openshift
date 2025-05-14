@@ -74,13 +74,14 @@ function count_cpu_pods() {
       total += $1
     }
   } END {
+    if (total == "") total = 0
     print total
   }'
 }
 
 function count_cpu_nodes() { 
   # Sum of CPUs Nodes in K8s
-  kubectl get nodes -o jsonpath='{range .items[*]}{.status.capacity.cpu}{"\n"}{end}' | \
+  kubectl get nodes -l node-role.kubernetes.io/worker= -o jsonpath='{range .items[*]}{.status.capacity.cpu}{"\n"}{end}' | \
   awk '{
     if ($1 ~ "m") {
       total += $1 / 1000

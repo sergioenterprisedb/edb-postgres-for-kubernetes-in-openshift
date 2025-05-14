@@ -68,14 +68,14 @@ spec:
       #  encryption: AES256
     retentionPolicy: "1d"
 
-  managed:
-    services:
-      #disabledDefaultServices: ["ro", "r"]
-      additional:
-      - selectorType: rw
-        serviceTemplate:
-          metadata:
-            name: cluster-sample-rw-lb
-          spec:
-            type: LoadBalancer
+#  managed:
+#    services:
+#      #disabledDefaultServices: ["ro", "r"]
+#      additional:
+#      - selectorType: rw
+#        serviceTemplate:
+#          metadata:
+#            name: cluster-sample-rw-lb
+#          spec:
+#            type: LoadBalancer
 

@@ -2,6 +2,9 @@
 . ./config.sh
 . ./primary.sh
 
+#Doc
+echo "19" > ./docs/docid
+
 pitr_date=$(${kubectl_cmd} exec -it ${primary} -- psql -U postgres -X -A -t -c "select min(timestamp+interval '1 second') from test;") 
 print_info "Restore date: ${red}${pitr_date%?}\n"
 
@@ -38,10 +41,14 @@ spec:
           secretAccessKey:
             name: minio-creds
             key: ACCESS_SECRET_KEY
-          #sessionToken:
-          #  name: minio-creds
-          #  key: ACCESS_SESSION_TOKEN
 EOF
+if [[ "$object_storage_type" = "aws" ]]; then
+  cat >> ./pitr/restore.yaml <<EOF
+          sessionToken:
+            name: minio-creds
+            key: ACCESS_SESSION_TOKEN
+EOF
+fi
 
 print_info "Deleting cluster-restore cluster\n"
 ${kubectl_cmd} delete cluster ${cluster_restore}

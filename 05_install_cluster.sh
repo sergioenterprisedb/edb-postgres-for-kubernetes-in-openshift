@@ -3,6 +3,9 @@
 . ./config.sh
 . ./env.sh
 
+#Doc
+echo "05" > ./docs/docid
+
 if [[ $? -eq 1 ]]; then
     echo "Error occurred. Please fix the problem."
     exit 1
