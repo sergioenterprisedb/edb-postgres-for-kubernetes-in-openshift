@@ -1,0 +1,61 @@
+apiVersion: postgresql.k8s.enterprisedb.io/v1
+kind: Cluster
+metadata:
+  name: $cluster_name
+spec:
+  instances: 3
+  logLevel: info
+  imageName: "quay.io/enterprisedb/postgresql:17.1"
+  primaryUpdateStrategy: unsupervised
+  enableSuperuserAccess: true
+
+  replicationSlots:
+    highAvailability:
+      enabled: true
+
+  postgresql:
+
+    synchronous:
+      method: any
+      number: 1
+      # preferred: Focuses on self-healing and high availability by automatically 
+      # disabling synchronous replication when no replicas are available in the cluster.
+      dataDurability: preferred
+
+    parameters:
+      pg_stat_statements.max: "10000"
+      pg_stat_statements.track: all
+
+    enableAlterSystem: true
+    pg_hba:
+      - host all all 0.0.0.0/0 md5
+
+  storage:
+    size: $postgres_storage
+
+  walStorage:
+    size: $postgres_wal_storage
+
+  monitoring:
+    enablePodMonitor: true
+
+  resources:
+    limits:
+      memory: "$postgres_memory"
+      cpu: "$postgres_cpu"
+
+  backup:
+    barmanObjectStore:
+      destinationPath: "$s3_destination_path"
+      endpointURL: "$s3_endpoint_url"
+      s3Credentials: 
+        accessKeyId:
+          name: minio-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: minio-creds
+          key: ACCESS_SECRET_KEY
+      data:
+        immediateCheckpoint: true
+    retentionPolicy: "1d"
+
