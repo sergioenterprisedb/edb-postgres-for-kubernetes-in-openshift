@@ -19,7 +19,7 @@ spec:
   bootstrap:
     recovery:
       backup:
-        name: backup-test
+        name: ${cluster_name}-backup-test
 
   resources:
     limits:

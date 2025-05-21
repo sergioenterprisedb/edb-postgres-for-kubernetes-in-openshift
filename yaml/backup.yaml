@@ -1,7 +1,7 @@
 apiVersion: postgresql.k8s.enterprisedb.io/v1
 kind: Backup
 metadata:
-  name: backup-test
+  name: ${cluster_name}-backup-test
 spec:
   cluster:
     name: $cluster_name
