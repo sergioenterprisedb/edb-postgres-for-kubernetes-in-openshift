@@ -3,9 +3,9 @@
 . ./commands.sh
 
 # Variables to be replaced
-export id="<your_user>"           # your name or id
+export id="<user>"                 # your name or id
 export region="emea"              # emea,na,apj
-export bucket="<your_bucket>"     # S3 bucket name
+export bucket="backups"           # S3 bucket name
 
 # Kubernetes environment
 export namespace="edb-${region}-${id}"   # k8s namespace
@@ -30,8 +30,8 @@ export epas_storage="512Mi"
 
 # Object Storage environment [minio|aws]
 export object_storage_type="minio"
-export ACCESS_KEY_ID=""
-export ACCESS_SECRET_KEY=""
+export ACCESS_KEY_ID="36sVrrwdHFSLTo7ZSbtV"
+export ACCESS_SECRET_KEY="zSdj77DGW6QaXER06cRqCCkT6J1Bw3OGAmcZ8UN7"
 export ACCESS_SESSION_TOKEN=""
 
 ## S3
@@ -42,7 +42,7 @@ export ACCESS_SESSION_TOKEN=""
 ## Minio
 export object_storage_bucket="${bucket}"
 export s3_destination_path="s3://${bucket}/"
-export s3_endpoint_url="<your_end_point>"
+export s3_endpoint_url="https://minio-api-minio.apps.cluster-nn797.dynamic.redhatworkshops.io"
 
 # TDE used
 # Not yet implemented
