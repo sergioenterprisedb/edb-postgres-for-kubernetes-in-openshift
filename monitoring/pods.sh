@@ -34,6 +34,7 @@ awk -F, 'BEGIN {OFS=","} {if (length($6) > 10) $6 = substr($6, 1, 30) "..."; pri
 sed -i "" "s|,,|,*,|" ${pod_monitor}
 sed -i '' '/replica/s/^/└─> /' ${pod_monitor}
 cat ${pod_monitor} | column -s, -t > ${pod_monitor1}
+cp ${pod_monitor} test.csv
 
 # ANSI color escape codes
 RED='\033[0;31m'
