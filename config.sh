@@ -3,7 +3,7 @@
 . ./commands.sh
 
 # Variables to be replaced
-export id="<user>"                # your name or id
+export id="$(oc whoami)"          # your name or id
 export region="emea"              # emea,na,apj
 export bucket="backups"           # S3 bucket name
 
