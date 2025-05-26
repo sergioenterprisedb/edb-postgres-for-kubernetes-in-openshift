@@ -5,7 +5,7 @@
 echo "10" > ./docs/docid
 
 print_command "${kubectl_cmd} delete -f ./yaml/backup.yaml\n"
-${kubectl_cmd} delete -f ./yaml/backup.yaml
+envsubst < ./yaml/backup.yaml | ${kubectl_cmd} delete -n ${namespace} -f-
 
 print_command "${kubectl_cmd} apply -f ./yaml/backup.yaml\n"
 envsubst < ./yaml/backup.yaml | ${kubectl_cmd} apply -n ${namespace} -f-
