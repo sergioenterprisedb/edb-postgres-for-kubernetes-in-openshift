@@ -1,3 +1,3 @@
 #!/bin/bash
 
-export users=30
+export users=40

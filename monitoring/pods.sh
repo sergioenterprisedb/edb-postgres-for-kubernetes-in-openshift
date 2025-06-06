@@ -23,7 +23,7 @@ echo "Instance Name,Cluster,Namespace,Status,Reason,Image Version,Role,Node name
 
 #kubectl get pod -A -o=jsonpath="$kubectl_filter" -l 'role in (replica,primary)' | sort -t, -k2,2 -k7,7 >> ${pod_monitor}
 kubectl get pod -A -o=jsonpath="$kubectl_filter" -l 'role in (replica,primary)' | sort -t, -k2,2 -k7,7 | \
-awk -F, 'BEGIN {OFS=","} {if (length($6) > 10) $6 = substr($6, 1, 30) "..."; print}' >> ${pod_monitor}
+awk -F, 'BEGIN {OFS=","} {if (length($6) > 10) $6 = substr($6, 1, 40) "..."; print}' >> ${pod_monitor}
 
 # substr
 #awk -F',' 'NR==1 {print $0} NR>1 {$1=substr($1, 1, 10); $6=substr($6, 1, 20); OFS=","; print}' ${pod_monitor} > ${pod_monitor}.tmp && mv ${pod_monitor}.tmp ${pod_monitor}

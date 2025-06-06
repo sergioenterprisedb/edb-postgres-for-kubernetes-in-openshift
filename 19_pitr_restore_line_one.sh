@@ -54,12 +54,13 @@ print_info "Deleting cluster-restore cluster\n"
 ${kubectl_cmd} delete cluster ${cluster_restore}
 sleep 5
 ${kubectl_cmd} exec -it ${primary} -- psql -U postgres -c "select pg_switch_wal();"
+sleep 5
 #${kubectl_cmd} apply -f ./pitr/restore.yaml
 envsubst < ./pitr/restore.yaml | ${kubectl_cmd} apply -n ${namespace} -f-
 
 print_info "/!\ Verify that only the first record will be restored in the new cluster${reset}\n"
 print_info "/!\ Please, wait 60 seconds\n"
 printf "\n"
-sleep 70
+sleep 120
 ${kubectl_cmd} exec -it ${cluster_restore}-1 -- psql -U postgres -c "select * from test;"
 

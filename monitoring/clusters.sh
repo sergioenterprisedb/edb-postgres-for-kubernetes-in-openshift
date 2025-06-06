@@ -17,7 +17,7 @@ cluster_monitor1=$(mktemp)
 
 #echo "Instance Name,Cluster Name,Status,Image Version,Role,Node name,Operator Version" > ${cluster_monitor}
 
-kubectl get cluster -A -o wide  > ${cluster_monitor}
+kubectl get cluster -A -o wide  >> ${cluster_monitor}
 cat ${cluster_monitor} | sort | column -s, -t > ${cluster_monitor1}
 
 # ANSI color escape codes
