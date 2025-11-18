@@ -45,7 +45,7 @@ export ACCESS_SESSION_TOKEN=""
 ## Minio
 export object_storage_bucket="${bucket}"
 export s3_destination_path="s3://${bucket}/"
-export s3_endpoint_url="https://minio-api-minio.apps.cluster-826x2.826x2.sandbox5464.opentlc.com"
+export s3_endpoint_url="https://minio-api-minio.apps.cluster-nkg5p.nkg5p.sandbox1772.opentlc.com"
 
 # TDE used
 # Not yet implemented
