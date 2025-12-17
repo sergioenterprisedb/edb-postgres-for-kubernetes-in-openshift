@@ -34,13 +34,22 @@ To use this demo the following software is needed:
     - `ACCESS_SECRET_KEY`
     - `ACCESS_SESSION_TOKEN` if necessary (only for AWS S3)
 
-## Credentials
-Create a file `.aws.sh` with this information:
+## EDB Repo
+You need an EDB token to access to the EDB private repository to be able to download
+the EDB images (PostgreSQL, EDB Postgres Extended and/or EDB Postgres Advanced Server).
+Create a file called `.credentials.sh` with your token:
+```
+export EDB_SUBSCRIPTION_TOKEN="<your-token>"
+```
+
+## AWS Credentials
+If you are using AWS as object storage, create a file `.aws.sh` with this information:
 ```
 export AWS_ACCESS_KEY_ID="<AWS_ACCESS_KEY_ID>"
 export AWS_SECRET_ACCESS_KEY="<AWS_SECRET_ACCESS_KEY>"
 export AWS_SESSION_TOKEN="<AWS_SESSION_TOKEN>"
 ```
+
 ## Demo namespace structure
 ```
 Namespaces
@@ -75,33 +84,35 @@ the PostgreSQL clusters in Red Hat OpensShift. This is an example:
 ⎈ Kubernetes environment ⎈
 ----------------------------------------------------------------------------------------------
 Context
-├─ Current name            : docker-desktop
-├─ Current cluster         : docker-desktop
-└─ Current namespace       : edb-emea-pgcluster
+├─ Current name            : default/api-ocp4-multiarch-acmi-fr:6443/kube:admin
+├─ Current cluster         : api-ocp4-multiarch-acmi-fr:6443
+└─ Current namespace       : edb-emea-sergio
 Pods
-└─ Sum of pod CPU's        : 1.5 / 12
+└─ Sum of pod CPU's        : 1.5 / 120
 Nodes
-├─ Total K8s nodes         : 1
-└─ Number of CPU's per node: 12
-Kubernetes Namespace       : edb-emea-pgcluster
+├─ Total K8s nodes         : 6
+└─ Total of CPU's (workers): 120
+Kubernetes Namespace       : edb-emea-sergio
 
 ----------------------------------------------------------------------------------------------
 PostgreSQL Cluster configuration
 ----------------------------------------------------------------------------------------------
-PostgreSQL Cluster Name    : cluster-pgcluster
+Postgres Cluster Name      : cluster-sergio
 Postgres Instances         : 3
 Postgres CPU's             : 0.5
 Postgres Memory            : 512Mi
 Postgres storage           : 512Mi
 Postgres WAL storage       : 512Mi
+Postgres default image     : docker.enterprisedb.com/k8s/edb-postgres-advanced:17.6
+Postgres upgrade image     : docker.enterprisedb.com/k8s/edb-postgres-advanced:17.7
 
 ----------------------------------------------------------------------------------------------
 Object Storage
 ----------------------------------------------------------------------------------------------
 Object Storage type        : aws
-Object Storage bucket      : <your-bucket>
-Destination path           : s3://<your-bucket>/
-Endpoint                   : 
+Object Storage bucket      : sergio1-bucket
+Destination path           : s3://sergio1-bucket/
+Endpoint                   : https://minio-api-minio.apps.cluster-bdb5x.bdb5x.sandbox789.opentlc.com
 
 ----------------------------------------------------------------------------------------------
 Transparent Data Encryption (TDE)
