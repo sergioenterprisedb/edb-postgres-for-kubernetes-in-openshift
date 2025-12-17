@@ -26,7 +26,7 @@ if [[ -z "${EDB_SUBSCRIPTION_TOKEN}" ]]; then
   echo ""
   exit 1
 else
-  . ./install_edb_token.sh
+  . ./connect_edb_token.sh
 fi
 
 # Create namespace if does not exists
