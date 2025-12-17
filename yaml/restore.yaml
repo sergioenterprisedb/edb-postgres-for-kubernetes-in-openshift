@@ -5,6 +5,8 @@ metadata:
 spec:
   instances: 1
   imageName: "$postgres_upgrade_image"
+  imagePullSecrets:
+  - name: postgresql-operator-pull-secret
 
   storage:
     size: $postgres_storage
@@ -15,6 +17,8 @@ spec:
 
   monitoring:
     enablePodMonitor: true
+
+$affinity
 
   bootstrap:
     recovery:

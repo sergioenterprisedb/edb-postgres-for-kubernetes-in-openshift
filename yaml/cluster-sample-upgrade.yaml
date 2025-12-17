@@ -6,8 +6,8 @@ spec:
   instances: $postgres_instances
   logLevel: info
   imageName: "$postgres_upgrade_image"
-  #minSyncReplicas: 1
-  #maxSyncReplicas: 1
+  imagePullSecrets:
+  - name: postgresql-operator-pull-secret
   enableSuperuserAccess: true
 
   replicationSlots:
@@ -36,6 +36,8 @@ spec:
 
   monitoring:
     enablePodMonitor: true
+
+$affinity
 
   resources:
     #requests:
@@ -68,14 +70,4 @@ spec:
       #  encryption: AES256
     retentionPolicy: "1d"
 
-#  managed:
-#    services:
-#      #disabledDefaultServices: ["ro", "r"]
-#      additional:
-#      - selectorType: rw
-#        serviceTemplate:
-#          metadata:
-#            name: cluster-sample-rw-lb
-#          spec:
-#            type: LoadBalancer
 

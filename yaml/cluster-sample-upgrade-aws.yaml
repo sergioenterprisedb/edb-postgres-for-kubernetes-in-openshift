@@ -6,8 +6,8 @@ spec:
   instances: $postgres_instances
   logLevel: info
   imageName: "$postgres_upgrade_image"
-  #minSyncReplicas: 1
-  #maxSyncReplicas: 1
+  imagePullSecrets:
+  - name: postgresql-operator-pull-secret
   enableSuperuserAccess: true
 
   replicationSlots:
@@ -36,6 +36,7 @@ spec:
 
   monitoring:
     enablePodMonitor: true
+$affinity
 
   backup:
     #target: "prefer-standby"

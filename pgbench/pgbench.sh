@@ -93,8 +93,8 @@ ${kubectl_cnp} pgbench \
   --job-name pgbench-run \
   ${cluster_name} \
   -- --time 20 \
-  --client 5 \
-  --jobs 1 
+  --client 10 \
+  --jobs 8
   #--progress=2
   # jobs 8, client 16
 

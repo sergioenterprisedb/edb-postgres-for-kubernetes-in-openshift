@@ -13,6 +13,8 @@ metadata:
 spec:
   instances: 1
   imageName: $epas_image
+  imagePullSecrets:
+  - name: postgresql-operator-pull-secret
 
   enableSuperuserAccess: true
   postgresql:

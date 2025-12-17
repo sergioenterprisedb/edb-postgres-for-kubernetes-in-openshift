@@ -12,6 +12,6 @@ for ((i=1; i<=$users; i++)); do
   oc delete secret minio-creds -n ${namespace}
 
   echo "Deleting cluster ${cluster_name} in namespace ${namespace}"
-  oc delete cluster -n ${namespace} ${cluster_name}
+  oc delete clusters.postgresql.k8s.enterprisedb.io -n ${namespace} ${cluster_name}
 
 done

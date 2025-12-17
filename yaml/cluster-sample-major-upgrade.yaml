@@ -1,10 +1,12 @@
 apiVersion: postgresql.k8s.enterprisedb.io/v1
 kind: Cluster
 metadata:
-  name: ${cluster_name}-17
+  name: ${cluster_name}-major
 spec:
   instances: 1
-  imageName: $postgres_17_image
+  imageName: $postgres_major_upgrade_image
+  imagePullSecrets:
+  - name: postgresql-operator-pull-secret
   enableSuperuserAccess: true
 
   storage:
@@ -28,6 +30,8 @@ spec:
       password:
         name: ${cluster_name}-superuser
         key: password
+
+$affinity
 
   resources:
     limits:

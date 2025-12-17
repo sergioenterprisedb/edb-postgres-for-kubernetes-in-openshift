@@ -6,6 +6,8 @@ spec:
   instances: $postgres_instances
   logLevel: info
   imageName: "$postgres_default_image"
+  imagePullSecrets:
+  - name: postgresql-operator-pull-secret
   primaryUpdateStrategy: unsupervised
   enableSuperuserAccess: true
 
@@ -41,6 +43,8 @@ spec:
 
   monitoring:
     enablePodMonitor: true
+
+$affinity
 
   resources:
     #requests:
