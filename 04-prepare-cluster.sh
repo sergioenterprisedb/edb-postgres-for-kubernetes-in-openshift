@@ -1,6 +1,7 @@
 #!/bin/bash
 
 . ./config.sh
+. ./commands.sh
 
 #Doc
 echo "04" > ./docs/docid
@@ -26,7 +27,12 @@ if [[ -z "${EDB_SUBSCRIPTION_TOKEN}" ]]; then
   echo ""
   exit 1
 else
+  print_info "Connecting to EDB Repo...\n"
   . ./connect_edb_token.sh
+  if [ $? -eq 1 ]; then
+    print_error "Error: something went wrong connecting to EDB Repo\n"
+    exit 1
+  fi
 fi
 
 # Create namespace if does not exists

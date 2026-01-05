@@ -5,7 +5,9 @@ metadata:
 spec:
   instances: 3
   logLevel: info
-  imageName: "quay.io/enterprisedb/postgresql:17.1"
+  imageName: "$postgres_default_image"
+  imagePullSecrets:
+  - name: postgresql-operator-pull-secret
   primaryUpdateStrategy: unsupervised
   enableSuperuserAccess: true
 
