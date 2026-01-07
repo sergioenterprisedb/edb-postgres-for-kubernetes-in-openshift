@@ -26,12 +26,35 @@ spec:
       recoveryTarget:
         targetTime: '${pitr_date%?}'
         #backupID: 20230411T115526
-
   externalClusters:
     - name: ${cluster_name}
+EOF
+
+if [[ "$object_storage_type" = "aws" ]]; then
+cat >> ./pitr/restore.yaml <<EOF
       barmanObjectStore:
-        #destinationPath: "$s3_destination_path"
-        #endpointURL: ${endpoint}
+        destinationPath: "$s3_destination_path"
+        s3Credentials:
+          accessKeyId:
+            name: minio-creds
+            key: ACCESS_KEY_ID
+          secretAccessKey:
+            name: minio-creds
+            key: ACCESS_SECRET_KEY
+          sessionToken:
+            name: minio-creds
+            key: ACCESS_SESSION_TOKEN
+      data:
+        immediateCheckpoint: true
+      wal:
+        compression: gzip
+        maxParallel: 8
+        encryption: AES256
+      retentionPolicy: "1d"
+EOF
+elif [[ "$object_storage_type" = "minio" ]]; then
+cat >> ./pitr/restore.yaml <<EOF
+      barmanObjectStore:
         destinationPath: "$s3_destination_path"
         endpointURL: "$s3_endpoint_url"
         s3Credentials:
@@ -41,12 +64,9 @@ spec:
           secretAccessKey:
             name: minio-creds
             key: ACCESS_SECRET_KEY
-EOF
-if [[ "$object_storage_type" = "aws" ]]; then
-  cat >> ./pitr/restore.yaml <<EOF
-          sessionToken:
-            name: minio-creds
-            key: ACCESS_SESSION_TOKEN
+      data:
+        immediateCheckpoint: true
+      retentionPolicy: "1d"
 EOF
 fi
 

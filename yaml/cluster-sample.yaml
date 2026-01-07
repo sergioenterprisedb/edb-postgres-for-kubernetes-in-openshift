@@ -30,6 +30,7 @@ spec:
     parameters:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
+      DateStyle: "ISO, DMY"
 
     enableAlterSystem: true
     pg_hba:

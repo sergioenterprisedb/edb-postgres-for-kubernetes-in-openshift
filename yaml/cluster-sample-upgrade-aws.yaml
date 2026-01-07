@@ -1,7 +1,7 @@
 apiVersion: postgresql.k8s.enterprisedb.io/v1
 kind: Cluster
 metadata:
-  name: cluster-sample
+  name: $cluster_name
 spec:
   instances: $postgres_instances
   logLevel: info
@@ -26,7 +26,8 @@ spec:
     parameters:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
-
+      DateStyle: "ISO, DMY"
+      
   storage:
     size: $postgres_storage
 
@@ -38,11 +39,15 @@ spec:
     enablePodMonitor: true
 $affinity
 
+  resources:
+    limits:
+      memory: "$postgres_memory"
+      cpu: "$postgres_cpu"
+
   backup:
-    #target: "prefer-standby"
     barmanObjectStore:
       destinationPath: "$s3_destination_path"
-      s3Credentials: "$s3_endpoint_url"
+      s3Credentials:
         accessKeyId:
           name: minio-creds
           key: ACCESS_KEY_ID
@@ -59,15 +64,4 @@ $affinity
         maxParallel: 8
         encryption: AES256
     retentionPolicy: "1d"
-
-#  managed:
-#    services:
-#      #disabledDefaultServices: ["ro", "r"]
-#      additional:
-#      - selectorType: rw
-#        serviceTemplate:
-#          metadata:
-#            name: cluster-sample-rw-lb
-#          spec:
-#            type: LoadBalancer
 

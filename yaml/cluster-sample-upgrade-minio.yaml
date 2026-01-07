@@ -26,7 +26,8 @@ spec:
     parameters:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
-
+      DateStyle: "ISO, DMY"
+      
   storage:
     size: $postgres_storage
 

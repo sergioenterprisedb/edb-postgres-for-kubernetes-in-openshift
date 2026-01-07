@@ -26,7 +26,8 @@ spec:
     parameters:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
-
+      DateStyle: "ISO, DMY"
+      
   storage:
     size: $postgres_storage
 
@@ -36,22 +37,16 @@ spec:
 
   monitoring:
     enablePodMonitor: true
-
 $affinity
 
   resources:
-    #requests:
-    #  memory: "512Mi"
-    #  cpu: "1"
     limits:
       memory: "$postgres_memory"
       cpu: "$postgres_cpu"
   
   backup:
-    #target: "prefer-standby"
     barmanObjectStore:
       destinationPath: "$s3_destination_path"
-      #endpointURL: "$s3_endpoint_url"
       s3Credentials: 
         accessKeyId:
           name: minio-creds
@@ -64,10 +59,6 @@ $affinity
           key: ACCESS_SESSION_TOKEN
       data:
         immediateCheckpoint: true
-      #wal:
-      #  compression: gzip
-      #  maxParallel: 8
-      #  encryption: AES256
     retentionPolicy: "1d"
 
 
