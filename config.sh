@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Author:      Sergio Romera
+# Description: Demo config file. Please verify next values:
+#              - id: "$(oc whoami)" if doing Red Hat demo. If not, choose your name. 
+#              - region: emea|na|apj
+#              - bucket_name: common name is pg_backup if you are doing a demo. If you are using AWS, choose your bucket name 
+#              - object_storage_type: minio|aws
+#              - s3_destination_path and s3_endpoint_url: if you are using minio
+#              - s3_destination_path: if you are using aws
+
 git_directory=`git rev-parse --show-toplevel`
 . ${git_directory}/commands.sh
 
@@ -8,14 +17,14 @@ git_directory=`git rev-parse --show-toplevel`
 # Variables to be replaced
 export id="$(oc whoami)"          # your name or id
 export region="emea"              # emea,na,apj
-export bucket="<your-bucket>"     # S3 bucket name
+export bucket="cnp"               # S3 bucket name
 
-# Kubernetes environment
-export namespace="edb-${region}-${id}"   # k8s namespace
+# Kubernetes environment configuration
+export namespace="edb-${region}-${id}"
 export kubectl_cmd="oc"
 export kubectl_cnp="kubectl-cnp"
 
-# Postgres
+# Postgres instance configuration
 export cluster_name="cluster-${id}"
 export cluster_restore="cluster-restore-${id}"
 export postgres_instances=3
@@ -54,8 +63,12 @@ export postgres_wal_storage="512Mi"
 
 # ---
 # EDB Postgres
-export postgres_default_image="docker.enterprisedb.com/k8s/postgresql:17.6"
-export postgres_upgrade_image="docker.enterprisedb.com/k8s/postgresql:17.7"
+#export postgres_default_image="docker.enterprisedb.com/k8s/postgresql:17.6"
+#export postgres_upgrade_image="docker.enterprisedb.com/k8s/postgresql:17.7"
+
+# Open Source
+export postgres_default_image="ghcr.io/cloudnative-pg/postgresql:17.6"
+export postgres_upgrade_image="ghcr.io/cloudnative-pg/postgresql:17.7"
 
 # EDB Postgres Extended
 #export postgres_default_image="docker.enterprisedb.com/k8s/edb-postgres-extended:17.6"
@@ -67,9 +80,12 @@ export postgres_upgrade_image="docker.enterprisedb.com/k8s/postgresql:17.7"
 # ---
 
 # Major upgrade
-export postgres_major_upgrade_image="docker.enterprisedb.com/k8s/postgresql:18.1"
+#export postgres_major_upgrade_image="docker.enterprisedb.com/k8s/postgresql:18.1"
 
-# EPAS
+# Open Source
+export postgres_major_upgrade_image="ghcr.io/cloudnative-pg/postgresql:18.1"
+
+# EPAS (only used for TDE demo)
 export epas_image="docker.enterprisedb.com/k8s/edb-postgres-advanced:17.7"
 export epas_storage="512Mi"
 
@@ -77,17 +93,25 @@ export epas_storage="512Mi"
 export object_storage_type="minio"
 
 # MinIO
+# Setup these variables only if using minio object storage
 export ACCESS_KEY_ID="minio"
 export ACCESS_SECRET_KEY="edb-workshop"
 export ACCESS_SESSION_TOKEN=""
 export object_storage_bucket="${bucket}"
+
+# Minio in OpenShift
+# The Issue: OpenShift Routes (the .apps-crc.testing URL) usually listen on standard ports 80 (HTTP) or 443 (HTTPS).
+# By appending :9000 to the Route URL, the traffic is likely hitting a dead end because the OpenShift Router isn't 
+# listening for external traffic on 9000.
+# The Fix: Since both MinIO and Postgres are inside the same CRC cluster, stop using the Route URL. 
+# Use the internal Kubernetes Service DNS instead. It is faster, more reliable, and bypasses the router.
+export s3_endpoint_url="http://minio-service.minio-system.svc:9000"
 export s3_destination_path="s3://${bucket}/"
 
-## S3
+# S3
+# Setup these variables only if using minio object storage
 #export object_storage_bucket="${bucket}"
 #export s3_destination_path="s3://${bucket}/"
-#export s3_endpoint_url="https://minio-api-minio.apps.cluster-bdb5x.bdb5x.sandbox789.opentlc.com"
-
 
 # TDE used
 # Not yet implemented
