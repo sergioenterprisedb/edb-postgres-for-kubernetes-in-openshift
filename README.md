@@ -24,6 +24,7 @@ To use this demo the following software is needed:
 - Red Hat OpenShift environment (Red Hat Code Ready also works)
 - oc (OpenShift CLI installed)
 - jq (optional if you want to format JSON logs outputs)
+- In local installations, you can install [MinIO](#Install MinIO).
 - Modify `config.sh` file with your parameters:
   - Replace variables:
     - `id` : with your name or id
@@ -33,6 +34,13 @@ To use this demo the following software is needed:
     - `ACCESS_KEY_ID`
     - `ACCESS_SECRET_KEY`
     - `ACCESS_SESSION_TOKEN` if necessary (only for AWS S3)
+
+## Install MinIO
+You need an object storage for Postgres WALs and backups.
+```
+cd minio
+oc apply -f minio_crc.yaml
+```
 
 ## EDB Repo
 You need an EDB token to access to the EDB private repository to be able to download
