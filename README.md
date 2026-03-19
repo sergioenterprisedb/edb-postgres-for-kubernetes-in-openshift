@@ -21,7 +21,7 @@ To use this demo the following software is needed:
 - Red Hat OpenShift 4.x
 
 ## Prerequisites
-- Red Hat OpenShift environment (Red Hat Code Ready also works)
+- Red Hat OpenShift environment (Red Hat CodeReady Containers also works)
 - oc (OpenShift CLI installed)
 - jq (optional if you want to format JSON logs outputs)
 - In local installations, you can install [MinIO](#Install-MinIO).
