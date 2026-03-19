@@ -83,9 +83,6 @@ export postgres_upgrade_image="ghcr.io/cloudnative-pg/postgresql:17.7"
 # ---
 
 # Major upgrade
-#export postgres_major_upgrade_image="docker.enterprisedb.com/k8s/postgresql:18.1"
-
-# Open Source
 export postgres_major_upgrade_image="ghcr.io/cloudnative-pg/postgresql:18.1"
 
 # EPAS (only used for TDE demo)
