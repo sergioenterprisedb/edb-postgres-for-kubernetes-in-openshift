@@ -41,7 +41,7 @@ You need an object storage for Postgres WALs and backups.
 cd minio
 oc apply -f minio_crc.yaml
 ```
-### 🗄️ MinIO Access Details
+### MinIO Access Details
 
 | Service | URL |
 | :--- | :--- |
