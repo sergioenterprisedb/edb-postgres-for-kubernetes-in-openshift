@@ -41,9 +41,15 @@ You need an object storage for Postgres WALs and backups.
 cd minio
 oc apply -f minio_crc.yaml
 ```
-MinIO URL: [https://minio-console-minio-system.apps-crc.testing](https://minio-console-minio-system.apps-crc.testing)
-User: `minio`
-Password: `edb-workshop`
+### 🗄️ MinIO Access Details
+
+| Service | URL |
+| :--- | :--- |
+| **Console** | [https://minio-console-minio-system.apps-crc.testing](https://minio-console-minio-system.apps-crc.testing) |
+
+**Credentials:**
+* **Username:** `minio`
+* **Password:** `edb-workshop`
 
 ## EDB Repo
 You need an EDB token to access to the EDB private repository to be able to download
