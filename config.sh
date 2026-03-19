@@ -37,9 +37,9 @@ export postgres_wal_storage="512Mi"
 #export postgres_default_image="quay.io/enterprisedb/postgresql:16.2-multiarch"
 #export postgres_upgrade_image="quay.io/enterprisedb/postgresql:16.4-multiarch"
 
-# Using Docker repository
+## List version images with skopeo
+## https://github.com/containers/skopeo
 
-## List version images
 ## Login skopeo
 ## skopeo login docker.enterprisedb.com
 
@@ -62,21 +62,24 @@ export postgres_wal_storage="512Mi"
 ## skopeo list-tags docker://docker.enterprisedb.com/k8s/edb-postgres-advanced
 
 # ---
-# EDB Postgres
-#export postgres_default_image="docker.enterprisedb.com/k8s/postgresql:17.6"
-#export postgres_upgrade_image="docker.enterprisedb.com/k8s/postgresql:17.7"
-
-# Open Source
+# Open Source Repo
 export postgres_default_image="ghcr.io/cloudnative-pg/postgresql:17.6"
 export postgres_upgrade_image="ghcr.io/cloudnative-pg/postgresql:17.7"
 
-# EDB Postgres Extended
+# EDB Postgres Community Repo
+#export postgres_default_image="docker.enterprisedb.com/k8s/postgresql:17.6"
+#export postgres_upgrade_image="docker.enterprisedb.com/k8s/postgresql:17.7"
+
+# EDB Postgres Extended Repo
 #export postgres_default_image="docker.enterprisedb.com/k8s/edb-postgres-extended:17.6"
 #export postgres_upgrade_image="docker.enterprisedb.com/k8s/edb-postgres-extended:17.7"
 
-# EDB Postgres Advanced Server
-#export postgres_default_image="docker.enterprisedb.com/k8s/edb-postgres-advanced:17.6"
-#export postgres_upgrade_image="docker.enterprisedb.com/k8s/edb-postgres-advanced:17.7"
+# EDB Postgres Advanced Server Repo
+#
+# /!\ Warning /!\: In arm64 architectures, use ubi (Universal Base Images) images
+#
+#export postgres_default_image="docker.enterprisedb.com/k8s/edb-postgres-advanced:17.7-minimal-ubi9"
+#export postgres_upgrade_image="docker.enterprisedb.com/k8s/edb-postgres-advanced:17.9-minimal-ubi9"
 # ---
 
 # Major upgrade
@@ -86,7 +89,7 @@ export postgres_upgrade_image="ghcr.io/cloudnative-pg/postgresql:17.7"
 export postgres_major_upgrade_image="ghcr.io/cloudnative-pg/postgresql:18.1"
 
 # EPAS (only used for TDE demo)
-export epas_image="docker.enterprisedb.com/k8s/edb-postgres-advanced:17.7"
+export epas_image="docker.enterprisedb.com/k8s/edb-postgres-advanced:17.9-minimal-ubi9"
 export epas_storage="512Mi"
 
 # Object Storage environment [minio|aws]
