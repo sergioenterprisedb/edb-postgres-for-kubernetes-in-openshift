@@ -42,6 +42,8 @@ cd minio
 oc apply -f minio_crc.yaml
 ```
 MinIO URL: [https://minio-console-minio-system.apps-crc.testing](https://minio-console-minio-system.apps-crc.testing)
+User: `minio`
+Password: `edb-workshop`
 
 ## EDB Repo
 You need an EDB token to access to the EDB private repository to be able to download
