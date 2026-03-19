@@ -24,7 +24,7 @@ To use this demo the following software is needed:
 - Red Hat OpenShift environment (Red Hat Code Ready also works)
 - oc (OpenShift CLI installed)
 - jq (optional if you want to format JSON logs outputs)
-- In local installations, you can install [MinIO](#Install MinIO).
+- In local installations, you can install [MinIO](#Install-MinIO).
 - Modify `config.sh` file with your parameters:
   - Replace variables:
     - `id` : with your name or id
