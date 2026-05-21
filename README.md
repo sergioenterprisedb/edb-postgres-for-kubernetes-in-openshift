@@ -21,6 +21,10 @@ To use this demo the following software is needed:
 - Red Hat OpenShift 4.x
 
 ## Prerequisites
+- Create a file called `.credentials.sh` with your token:
+```
+export EDB_SUBSCRIPTION_TOKEN="<your-token>"
+```
 - Red Hat OpenShift environment (Red Hat CodeReady Containers also works)
 - oc (OpenShift CLI installed)
 - jq (optional if you want to format JSON logs outputs)
@@ -54,10 +58,6 @@ oc apply -f minio_crc.yaml
 ## EDB Repo
 You need an EDB token to access to the EDB private repository to be able to download
 the EDB images (PostgreSQL, EDB Postgres Extended and/or EDB Postgres Advanced Server).
-Create a file called `.credentials.sh` with your token:
-```
-export EDB_SUBSCRIPTION_TOKEN="<your-token>"
-```
 
 ## AWS Credentials
 If you are using AWS as object storage, create a file `.aws.sh` with this information:
