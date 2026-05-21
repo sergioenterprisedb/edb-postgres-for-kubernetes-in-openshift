@@ -21,7 +21,7 @@ To use this demo the following software is needed:
 - Red Hat OpenShift 4.x
 
 ## Prerequisites
-- Create a file called `.credentials.sh` with your token:
+- Modify file `.credentials.sh` with your token:
 ```
 export EDB_SUBSCRIPTION_TOKEN="<your-token>"
 ```
@@ -54,6 +54,8 @@ oc apply -f minio_crc.yaml
 **Credentials:**
 * **Username:** `minio`
 * **Password:** `edb-workshop`
+
+Create a bucket called `cnp`.
 
 ## EDB Repo
 You need an EDB token to access to the EDB private repository to be able to download
