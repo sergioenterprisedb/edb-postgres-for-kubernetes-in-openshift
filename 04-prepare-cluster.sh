@@ -6,35 +6,6 @@
 #Doc
 echo "04" > ./docs/docid
 
-# Check credentials
-if [[ -f ".credentials.sh" ]]; then
-   . ./.credentials.sh
-else
-  echo ""
-  echo "File .credentials.sh does not exist"
-  echo "Please, create file .credentials.sh with this value:"
-  echo "export EDB_SUBSCRIPTION_TOKEN=\"<your-token>\" > .credentials.sh"
-  exit 1
-fi
-
-if [[ -z "${EDB_SUBSCRIPTION_TOKEN}" ]]; then
-  echo ""
-  echo "Warning:"
-  echo "********"
-  echo "EDB_SUBSCRIPTION_TOKEN is not set."
-  echo "Please, create file .credentials.sh with this value:"
-  echo "export EDB_SUBSCRIPTION_TOKEN=\"<your-token>\" > .credentials.sh"
-  echo ""
-  exit 1
-else
-  print_info "Connecting to EDB Repo...\n"
-  . ./connect_edb_token.sh
-  if [ $? -eq 1 ]; then
-    print_error "Error: something went wrong connecting to EDB Repo\n"
-    exit 1
-  fi
-fi
-
 # Create namespace if does not exists
 . ./create_namespace.sh
 
