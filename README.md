@@ -21,7 +21,7 @@ To use this demo the following software is needed:
 - Red Hat OpenShift 4.x
 
 ## Prerequisites
-- Modify file `.credentials.sh` with your token:
+- Modify file `.credentials.sh` with your token: 
 ```
 export EDB_SUBSCRIPTION_TOKEN="<your-token>"
 ```
