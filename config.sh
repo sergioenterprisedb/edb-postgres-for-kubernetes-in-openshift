@@ -12,6 +12,7 @@
 git_directory=`git rev-parse --show-toplevel`
 . ${git_directory}/commands.sh
 
+
 #. ./commands.sh
 
 # Variables to be replaced
