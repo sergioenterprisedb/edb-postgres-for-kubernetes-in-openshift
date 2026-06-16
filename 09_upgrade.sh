@@ -12,7 +12,7 @@ if [ "$object_storage_type" == "aws" ]; then
 elif [ "$object_storage_type" == "minio" ]; then
   print_command "${kubectl_cmd} apply -n ${namespace} -f ./yaml/cluster-sample-upgrade-minio.yaml\n"
   envsubst <  ./yaml/cluster-sample-upgrade-minio.yaml | ${kubectl_cmd} apply -n ${namespace} -f-
-elif [ "object_storage_type" == "odf" ]; then
+elif [ "$object_storage_type" == "odf" ]; then
   print_command "${kubectl_cmd} apply -n ${namespace} -f ./yaml/cluster-sample-upgrade-odf.yaml\n"
   envsubst <  ./yaml/cluster-sample-upgrade-odf.yaml | ${kubectl_cmd} apply -n ${namespace} -f-
 fi
