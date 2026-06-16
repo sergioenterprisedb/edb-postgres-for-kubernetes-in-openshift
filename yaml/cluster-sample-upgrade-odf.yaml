@@ -1,0 +1,65 @@
+apiVersion: postgresql.k8s.enterprisedb.io/v1
+kind: Cluster
+metadata:
+  name: $cluster_name
+spec:
+  instances: $postgres_instances
+  logLevel: info
+  imageName: "$postgres_upgrade_image"
+  imagePullSecrets:
+  - name: postgresql-operator-pull-secret
+  enableSuperuserAccess: true
+
+  replicationSlots:
+    highAvailability:
+      enabled: true
+
+  postgresql:
+
+    synchronous:
+      method: any
+      number: 1
+      # preferred: Focuses on self-healing and high availability by automatically 
+      # disabling synchronous replication when no replicas are available in the cluster.
+      dataDurability: preferred
+
+    parameters:
+      pg_stat_statements.max: "10000"
+      pg_stat_statements.track: all
+      DateStyle: "ISO, DMY"
+      
+  storage:
+    size: $postgres_storage
+
+  walStorage:
+    resizeInUseVolumes: true
+    size: $postgres_wal_storage
+
+  #monitoring:
+  #  enablePodMonitor: true
+
+$affinity
+
+  resources:
+    #requests:
+    #  memory: "512Mi"
+    #  cpu: "1"
+    limits:
+      memory: "$postgres_memory"
+      cpu: "$postgres_cpu"
+  
+  backup:
+    #target: "prefer-standby"
+    barmanObjectStore:
+      destinationPath: "$s3_destination_path"
+      endpointURL: "$s3_endpoint_url"
+      s3Credentials: 
+        accessKeyId:
+          name: ${OBC_NAME}
+          key: AWS_ACCESS_KEY_ID
+        secretAccessKey:
+          name: ${OBC_NAME}
+          key: AWS_SECRET_ACCESS_KEY
+      data:
+        immediateCheckpoint: true
+    retentionPolicy: "1d"
