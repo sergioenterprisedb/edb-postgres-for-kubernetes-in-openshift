@@ -68,10 +68,26 @@ cat >> ./pitr/restore.yaml <<EOF
         immediateCheckpoint: true
       retentionPolicy: "1d"
 EOF
+elif [[ "$object_storage_type" = "odf" ]]; then
+cat >> ./pitr/restore.yaml <<EOF
+      barmanObjectStore:
+        destinationPath: "$s3_destination_path"
+        endpointURL: "$s3_endpoint_url"
+        s3Credentials:
+          accessKeyId:
+            name: ${OBC_NAME}
+            key: AWS_ACCESS_KEY_ID
+          secretAccessKey:
+            name: ${OBC_NAME}
+            key: AWS_SECRET_ACCESS_KEY
+      data:
+        immediateCheckpoint: true
+      retentionPolicy: "1d"
+EOF
 fi
 
 print_info "Deleting cluster-restore cluster\n"
-${kubectl_cmd} delete cluster ${cluster_restore}
+${kubectl_cmd} delete cluster.postgresql.k8s.enterprisedb.io ${cluster_restore}
 sleep 5
 ${kubectl_cmd} exec -it ${primary} -- psql -U postgres -c "select pg_switch_wal();"
 sleep 5
