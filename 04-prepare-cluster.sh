@@ -6,6 +6,11 @@
 #Doc
 echo "04" > ./docs/docid
 
+if [ -f .cluster_prepare_done ]; then
+  print_info "Cluster preparation already completed; exiting."
+  exit 0
+fi
+
 # Create namespace if does not exists
 . ./create_namespace.sh
 
@@ -39,6 +44,8 @@ elif [ "$object_storage_type" == "odf" ]; then
     sleep 2
   done
 fi
+
+touch .cluster_prepare_done
 
 # Set context
 ./set_context.sh
