@@ -29,6 +29,15 @@ elif [ "$object_storage_type" == "minio" ]; then
   ${kubectl_cmd} create secret generic minio-creds \
     --from-literal=ACCESS_KEY_ID=${ACCESS_KEY_ID} \
     --from-literal=ACCESS_SECRET_KEY=${ACCESS_SECRET_KEY}
+elif [ "$object_storage_type" == "odf" ]; then
+  print_info "ODF s3 bucket configuration...\n"
+  envsubst < ./yaml/object_bucket_claim.yaml | ${kubectl_cmd} apply -n ${namespace} -f -
+
+  # wait until cm and secret have been created
+  until oc get cm ${id}-backup-bucket &>/dev/null; do
+    print_info "Wait until s3 bucket config map and secret have been created"
+    sleep 2
+  done
 fi
 
 # Set context
