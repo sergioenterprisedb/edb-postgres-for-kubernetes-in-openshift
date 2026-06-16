@@ -1,0 +1,8 @@
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: ${id}-backup-bucket
+  namespace: ${namespace}
+spec:
+  generateBucketName: ${id}-backup-bucket
+  storageClassName: openshift-storage.noobaa.io
