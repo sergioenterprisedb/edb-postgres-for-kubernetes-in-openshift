@@ -117,7 +117,7 @@ export s3_destination_path="s3://${bucket}/"
 # This block is conditionally executed when storage_object_type == odf and a
 # marker file .cluster_prepare_done exists, indicating step 04_prepare_cluster.sh
 # has been run successfully
-if [ $object_storage_type == "odf" && test -f .cluster_prepare_done ]; then
+if [ $object_storage_type == "odf" ] && [ -f .cluster_prepare_done ]; then
   export OBC_NAME="${id}-backup-bucket"
   export INTERNAL_BUCKET_ENDPOINT="$(oc get cm ${OBC_NAME} -o jsonpath='{.data.BUCKET_HOST}')"
   export BUCKET_NAME="$(oc get cm ${OBC_NAME} -o jsonpath='{.data.BUCKET_NAME}')"
