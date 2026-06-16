@@ -89,8 +89,8 @@ export postgres_major_upgrade_image="ghcr.io/cloudnative-pg/postgresql:18.1"
 export epas_image="docker.enterprisedb.com/k8s/edb-postgres-advanced:17.9-minimal-ubi9"
 export epas_storage="512Mi"
 
-# Object Storage environment [minio|aws]
-export object_storage_type="minio"
+# Object Storage environment [minio|aws|odf]
+export object_storage_type="odf"
 
 # MinIO
 # Setup these variables only if using minio object storage
@@ -112,6 +112,22 @@ export s3_destination_path="s3://${bucket}/"
 # Setup these variables only if using minio object storage
 #export object_storage_bucket="${bucket}"
 #export s3_destination_path="s3://${bucket}/"
+
+# ODF
+# This block is conditionally executed when storage_object_type == odf and a
+# marker file .cluster_prepare_done exists, indicating step 04_prepare_cluster.sh
+# has been run successfully
+if [ $object_storage_type == "odf" && test -f .cluster_prepare_done ]; then
+  export OBC_NAME="${id}-backup-bucket"
+  export INTERNAL_BUCKET_ENDPOINT="$(oc get cm ${OBC_NAME} -o jsonpath='{.data.BUCKET_HOST}')"
+  export BUCKET_NAME="$(oc get cm ${OBC_NAME} -o jsonpath='{.data.BUCKET_NAME}')"
+  export ACCESS_KEY_ID="$(oc get secret ${OBC_NAME} -o jsonpath='{.data.AWS_ACCESS_KEY_ID}' | base64 --decode)"
+  export ACCESS_SECRET_KEY="$(oc get secret ${OBC_NAME} -o jsonpath='{.data.AWS_SECRET_ACCESS_KEY}' | base64 --decode)"
+  export BUCKET_ENDPOINT="https://$(oc get route -n openshift-storage s3 -o jsonpath='{.spec.host}')"
+  export s3_destination_path="s3://${BUCKET_NAME}/"
+  export s3_endpoint_url="${BUCKET_ENDPOINT}"
+  export object_storage_bucket="${BUCKET_NAME}"
+fi
 
 # TDE used
 # Not yet implemented
