@@ -1,1 +1,0 @@
-export EDB_SUBSCRIPTION_TOKEN=xxx
