@@ -105,7 +105,7 @@ export object_storage_bucket="${bucket}"
 # listening for external traffic on 9000.
 # The Fix: Since both MinIO and Postgres are inside the same CRC cluster, stop using the Route URL. 
 # Use the internal Kubernetes Service DNS instead. It is faster, more reliable, and bypasses the router.
-export s3_endpoint_url="http://minio-service.minio-system.svc:9000"
+export s3_endpoint_url="https://minio-api-minio.apps.ocp.t8s7c.sandbox5452.opentlc.com/"
 export s3_destination_path="s3://${bucket}/"
 
 # S3
