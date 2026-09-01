@@ -9,6 +9,9 @@ echo "04" > ./docs/docid
 # Create namespace if does not exists
 . ./create_namespace.sh
 
+# Set context
+./set_context.sh
+
 if [ "$object_storage_type" == "aws" ]; then
   print_info "=======================================================\n"
   print_info "AWS secrets\n"
@@ -31,5 +34,3 @@ elif [ "$object_storage_type" == "minio" ]; then
     --from-literal=ACCESS_SECRET_KEY=${ACCESS_SECRET_KEY}
 fi
 
-# Set context
-./set_context.sh

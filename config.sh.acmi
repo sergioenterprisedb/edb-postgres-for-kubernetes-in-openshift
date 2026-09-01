@@ -1,0 +1,67 @@
+#!/bin/bash
+
+git_directory=`git rev-parse --show-toplevel`
+. ${git_directory}/commands.sh
+
+# Variables to be replaced
+#export id="$(oc whoami)"          # your name or id
+export id="user1"                 # your name or id
+export region="emea"              # emea,na,apj
+export bucket="backups"           # S3 bucket name
+
+# Kubernetes environment
+export namespace="edb-${region}-${id}"   # k8s namespace
+export kubectl_cmd="oc"
+export kubectl_cnp="kubectl-cnp"
+
+# Postgres
+export cluster_name="cluster-${id}"
+export cluster_restore="cluster-restore-${id}"
+export postgres_instances=3
+export postgres_cpu="0.5"
+export postgres_memory="512Mi"
+export postgres_storage="512Mi"
+export postgres_wal_storage="512Mi"
+export postgres_default_image="quay.io/enterprisedb/postgresql:16.2-multiarch"
+export postgres_upgrade_image="quay.io/enterprisedb/postgresql:16.4-multiarch"
+export postgres_17_image="quay.io/enterprisedb/postgresql:17-multiarch"
+export postgres_major_upgrade_image="quay.io/enterprisedb/postgresql:17.4-multiarch"
+
+# EPAS
+export epas_image="docker.enterprisedb.com/k8s_enterprise/edb-postgres-advanced:18.6-multiarch"
+export epas_storage="512Mi"
+
+# Object Storage environment [minio|aws]
+export object_storage_type="minio"
+export ACCESS_KEY_ID="minio"
+export ACCESS_SECRET_KEY="edb-workshop"
+export ACCESS_SESSION_TOKEN=""
+
+## S3
+#export object_storage_type="aws"
+#export object_storage_bucket="${bucket}"
+#export s3_destination_path="s3://${bucket}/"
+
+## Minio
+export object_storage_bucket="${bucket}"
+export s3_destination_path="s3://${bucket}/"
+export s3_endpoint_url=" http://minio-service.minio-sys.svc.cluster.local:9000"
+
+# TDE used
+# Not yet implemented
+export use_tde="N" # Y|N
+
+# Affinity
+export affinity=$(cat <<EOF
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: machine_type
+                operator: In
+                values:
+                  - power
+EOF
+)
